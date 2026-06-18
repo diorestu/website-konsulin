@@ -8,3 +8,5 @@
 <link rel="stylesheet" href="{{ asset('frontend-assets/css/aos.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend-assets/css/default.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend-assets/css/main.css?v=22') }}">
+<link rel="stylesheet" href="{{ asset('frontend-assets/css/style_new.css') }}">
+

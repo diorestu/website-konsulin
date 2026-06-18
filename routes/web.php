@@ -44,6 +44,7 @@ Route::prefix('layanan-dan-jasa')->group(function () {
     Route::get('/pengurusan-pelaporan-pajak',           [FrontController::class, 'pelaporan_pajak'])->name('services.pelaporan_pajak');
     Route::get('/pendirian-legaltias-pt-perorangan',    [FrontController::class, 'pendirian_pt'])->name('services.pendirian_pt');
     Route::get('/pengurusan-npwp',                      [FrontController::class, 'npwp'])->name('services.npwp');
+    Route::get('/businees-advisory',                    [FrontController::class, 'business_advisory'])->name('services.business_advisory');
     Route::get('/pengurusan-sertifikat-elektronik',     [FrontController::class, 'pengurusan_sertifikat'])->name('services.pengurusan_sertifikat');
     Route::get('/branding-usaha',                       [FrontController::class, 'branding'])->name('services.branding');
     Route::get('/pendirian-pt-badan',                   [FrontController::class, 'pendirian_pt_badan'])->name('services.pendirian_pt_badan');

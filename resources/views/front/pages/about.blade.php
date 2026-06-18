@@ -15,8 +15,172 @@
 @endsection
 
 @push('addon-style')
-<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" rel="stylesheet">
+
+    <style>
+        .hero-gallery-section {
+    position: relative;
+    padding: 96px 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(18, 104, 255, 0.08), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.hero-gallery-header {
+    max-width: 720px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.hero-gallery-header .sub-title {
+    display: inline-flex;
+    margin-bottom: 14px;
+    padding: 8px 16px;
+    color: #1268ff;
+    background: #eef6ff;
+    border: 1px solid #dce8ff;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.hero-gallery-header .title {
+    margin: 0 0 16px;
+    color: #07152f;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+}
+
+.hero-gallery-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.hero-photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 175px;
+    gap: 20px;
+}
+
+.hero-photo-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 26px;
+    background: #ffffff;
+    border: 1px solid #e6edf5;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+}
+
+.hero-photo-main {
+    grid-column: span 6;
+    grid-row: span 2;
+}
+
+.hero-photo-small {
+    grid-column: span 3;
+    grid-row: span 1;
+}
+
+.hero-photo-wide {
+    grid-column: span 4;
+    grid-row: span 1;
+}
+
+.hero-photo-tall {
+    grid-column: span 5;
+    grid-row: span 1;
+}
+
+.hero-photo-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 45%, rgba(7, 21, 47, 0.32) 100%);
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.hero-photo-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.45s ease;
+}
+
+.hero-photo-card:hover::before {
+    opacity: 1;
+}
+
+.hero-photo-card:hover img {
+    transform: scale(1.06);
+}
+
+@media (max-width: 991px) {
+    .hero-gallery-section {
+        padding: 74px 0;
+    }
+
+    .hero-photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 240px;
+        gap: 18px;
+    }
+
+    .hero-photo-main,
+    .hero-photo-small,
+    .hero-photo-wide,
+    .hero-photo-tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .hero-photo-main {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 575px) {
+    .hero-gallery-section {
+        padding: 62px 0;
+    }
+
+    .hero-gallery-header {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .hero-photo-gallery {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 230px;
+        gap: 16px;
+    }
+
+    .hero-photo-main,
+    .hero-photo-small,
+    .hero-photo-wide,
+    .hero-photo-tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .hero-photo-card {
+        border-radius: 20px;
+    }
+}
+    </style>
 @endpush
+
+
 
 @section('content')
     <section class="about__area-three about__bg-two" data-background="{{ asset('frontend-assets/img/bg/h3_about_bg.jpg') }}">
@@ -27,7 +191,8 @@
                         <a href="{{ asset('frontend-assets/img/legalitas/legalitas-1-large.jpg?v=2') }}">
                             <img src="{{ asset('frontend-assets/img/legalitas/legalitas-1.jpg?v=2') }}" alt="">
                         </a>
-                        <a href="{{ asset('frontend-assets/img/legalitas/legalitas-2-large.jpg') }}" style="
+                        <a href="{{ asset('frontend-assets/img/legalitas/legalitas-2-large.jpg') }}"
+                            style="
                         border-radius: 20px;
                         border: 6px solid var(--tg-color-white-default);
                         position: absolute;
@@ -35,11 +200,14 @@
                         bottom: 0;">
                             <img src="{{ asset('frontend-assets/img/legalitas/legalitas-2.jpg') }}" alt="">
                         </a>
-                        <img src="{{ asset('frontend-assets/img/images/h5_choose_shape01.jpg') }}" alt="" data-parallax="{&quot;x&quot; : 40}" style="transform:translate3d(0.029px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0.029px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
-                        <img src="{{ asset('frontend-assets/img/images/h5_choose_shape01.png') }}" alt="" class="alltuchtopdown">
+                        <img src="{{ asset('frontend-assets/img/images/h5_choose_shape01.jpg') }}" alt=""
+                            data-parallax="{&quot;x&quot; : 40}"
+                            style="transform:translate3d(0.029px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0.029px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                        <img src="{{ asset('frontend-assets/img/images/h5_choose_shape01.png') }}" alt=""
+                            class="alltuchtopdown">
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6">
                     <div class="about__content-three">
                         <div class="section-title mb-25">
@@ -68,7 +236,8 @@
                         <div class="about-bottom about-bottom-two">
                             <div class="author-wrap">
                                 <div class="thumb">
-                                    <img src="{{ asset('frontend-assets/img/legalitas/ceo.jpg') }}" alt="Adi Putra Rizkillah">
+                                    <img src="{{ asset('frontend-assets/img/legalitas/ceo.jpg') }}"
+                                        alt="Adi Putra Rizkillah">
                                 </div>
                                 <div class="content">
                                     <!--<img src="{{ asset('frontend-assets/img/images/sign.png') }}" alt="">-->
@@ -96,218 +265,66 @@
         </div>
     </section>
 
-    <section class="services__area-two services__bg-six">
+    <section class="hero-gallery-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <div class="section-title white-title mb-40 tg-heading-subheading animation-style3">
-                        <span class="sub-title">Layanan dan Jasa Konsulin</span>
-                        <h2 class="title tg-element-title">Temukan Layanan Yang Tepat <br> Untuk Kebutuhan Perusahaan
-                            Anda</h2>
-                    </div>
-                </div>
+            <div class="hero-gallery-header">
+                <span class="sub-title">Dokumentasi Konsulin</span>
+                <h2 class="title">Momen Profesional Bersama Klien dan Tim Konsulin</h2>
+                <p>
+                    Beberapa dokumentasi kegiatan dan suasana profesional Konsulin dalam mendampingi kebutuhan
+                    pajak, akuntansi, legalitas, dan pengembangan bisnis.
+                </p>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="services__tab-wrap">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="health-tab" data-bs-toggle="tab"
-                                    data-bs-target="#health-tab-pane" type="button" role="tab"
-                                    aria-controls="health-tab-pane" aria-selected="true">Laporan Keuangan</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="travel-tab" data-bs-toggle="tab"
-                                    data-bs-target="#travel-tab-pane" type="button" role="tab"
-                                    aria-controls="travel-tab-pane" aria-selected="false">Perencanaan Model Usaha</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="vehicle-tab" data-bs-toggle="tab"
-                                    data-bs-target="#vehicle-tab-pane" type="button" role="tab"
-                                    aria-controls="vehicle-tab-pane" aria-selected="false">Pelaporan Pajak</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="cargo-tab" data-bs-toggle="tab"
-                                    data-bs-target="#cargo-tab-pane" type="button" role="tab"
-                                    aria-controls="cargo-tab-pane" aria-selected="false">Pendirian Badan Usaha</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="fire-tab" data-bs-toggle="tab"
-                                    data-bs-target="#fire-tab-pane" type="button" role="tab"
-                                    aria-controls="fire-tab-pane" aria-selected="false">Pengurusan Dokumen</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="bike-tab" data-bs-toggle="tab"
-                                    data-bs-target="#bike-tab-pane" type="button" role="tab"
-                                    aria-controls="bike-tab-pane" aria-selected="false">Branding Usaha</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="health-tab-pane" role="tabpanel"
-                                aria-labelledby="health-tab" tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/1_laporan_keuangan.jpg') }}"
-                                            alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.laporan_keuangan') }}">Jasa
-                                                Pembuatan Laporan
-                                                Keuangan</a></h2>
-                                        <p>Kami menyediakan laporan keuangan akurat dan sesuai standar akuntansi, untuk
-                                            membantu Anda memantau bisnis dan membuat keputusan yang tepat.
-                                        </p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>UMKM</li>
-                                                <li><i class="fas fa-check"></i>Perusahaan Menengah</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.laporan_keuangan') }}" class="btn">Lihat
-                                            Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="travel-tab-pane" role="tabpanel" aria-labelledby="travel-tab"
-                                tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/2_business_planning.jpg') }}"
-                                            alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.model_usaha') }}">Perancangan
-                                                Model Bisnis</a>
-                                        </h2>
-                                        <p>Kami membantu Anda merancang model bisnis yang efektif dan berkelanjutan, untuk
-                                            mendukung pertumbuhan usaha dan mencapai tujuan jangka panjang.</p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>Business Model</li>
-                                                <li><i class="fas fa-check"></i>Business Fundraising</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.model_usaha') }}" class="btn">Lihat
-                                            Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="vehicle-tab-pane" role="tabpanel"
-                                aria-labelledby="vehicle-tab" tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/3_tax.jpg') }}" alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.pelaporan_pajak') }}">Pengurusan
-                                                Pelaporan Pajak</a>
-                                        </h2>
-                                        <p>Kami menyediakan layanan pengurusan pelaporan pajak yang tepat waktu dan sesuai
-                                            regulasi, membantu Anda memenuhi kewajiban perpajakan tanpa repot.</p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>Pajak Perorangan</li>
-                                                <li><i class="fas fa-check"></i>Pajak Badan Usaha</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.pelaporan_pajak') }}" class="btn">Lihat
-                                            Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="cargo-tab-pane" role="tabpanel" aria-labelledby="cargo-tab"
-                                tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/4_legalitas.jpg') }}"
-                                            alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.pendirian_pt') }}">Pendirian Badan Usaha</a></h2>
-                                        <p>Kami menawarkan layanan pendirian PT Perorangan dengan proses cepat dan mudah,
-                                            memastikan legalitas usaha Anda terpenuhi sesuai dengan peraturan yang berlaku.
-                                        </p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>Pengecekan Nama Usaha</li>
-                                                <li><i class="fas fa-check"></i>Sertifikat Kemenkumham</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.pendirian_pt') }}" class="btn">Lihat
-                                            Selangkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="fire-tab-pane" role="tabpanel" aria-labelledby="fire-tab"
-                                tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/5_npwp.jpg') }}" alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.npwp') }}">Pengurusan Dokumen</a>
-                                        </h2>
-                                        <p>Kami menyediakan layanan pengurusan NPWP yang cepat dan praktis, membantu Anda
-                                            memperoleh dokumen perpajakan yang diperlukan tanpa repot.</p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>NPWP Pribadi</li>
-                                                <li><i class="fas fa-check"></i>NPWP Badan Usaha</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.npwp') }}" class="btn">Lihat Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="bike-tab-pane" role="tabpanel" aria-labelledby="bike-tab"
-                                tabindex="0">
-                                <div class="services__item-four shine-animate-item">
-                                    <div class="services__thumb-four shine-animate">
-                                        <img src="{{ asset('frontend-assets/img/services/7_branding.jpg') }}"
-                                            alt="">
-                                    </div>
-                                    <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.branding') }}">Branding
-                                                Perusahaan</a></h2>
-                                        <p>Kami membantu membangun identitas merek yang kuat dan unik untuk perusahaan Anda,
-                                            meningkatkan visibilitas dan daya tarik di pasar.</p>
-                                        <div class="about__list-box">
-                                            <ul class="list-wrap">
-                                                <li><i class="fas fa-check"></i>Logo</li>
-                                                <li><i class="fas fa-check"></i>Website</li>
-                                                <li><i class="fas fa-check"></i>dan lainnya</li>
-                                            </ul>
-                                        </div>
-                                        <a href="{{ route('services.branding') }}" class="btn">Lihat Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            <div id="heroPhotoGallery" class="hero-photo-gallery">
+                <a href="{{ asset('frontend-assets/img/hero/hero1.jpeg') }}" class="hero-photo-card hero-photo-main">
+                    <img src="{{ asset('frontend-assets/img/hero/hero1.jpeg') }}" alt="Dokumentasi Konsulin">
+                </a>
+
+                <a href="{{ asset('frontend-assets/img/hero/hero4.jpeg') }}" class="hero-photo-card hero-photo-small">
+                    <img src="{{ asset('frontend-assets/img/hero/hero4.jpeg') }}" alt="Dokumentasi Meeting Konsulin">
+                </a>
+
+                <a href="{{ asset('frontend-assets/img/hero/hero3.jpeg') }}" class="hero-photo-card hero-photo-small">
+                    <img src="{{ asset('frontend-assets/img/hero/hero3.jpeg') }}" alt="Dokumentasi Klien Konsulin">
+                </a>
+                <a href="{{ asset('frontend-assets/img/hero/hero2.jpeg') }}" class="hero-photo-card hero-photo-main">
+                    <img src="{{ asset('frontend-assets/img/hero/hero2.jpeg') }}" alt="Dokumentasi Konsulin">
+                </a>
+
+                <a href="{{ asset('frontend-assets/img/hero/hero5.jpeg') }}" class="hero-photo-card hero-photo-small">
+                    <img src="{{ asset('frontend-assets/img/hero/hero5.jpeg') }}" alt="Dokumentasi Meeting Konsulin">
+                </a>
+
+                <a href="{{ asset('frontend-assets/img/hero/hero6.jpeg') }}" class="hero-photo-card hero-photo-small">
+                    <img src="{{ asset('frontend-assets/img/hero/hero6.jpeg') }}" alt="Dokumentasi Klien Konsulin">
+                </a>
             </div>
-        </div>
-        <div class="services__shape-wrap">
-            <img src="{{ asset('frontend-assets/img/images/h2_services_shape01.png') }}" alt=""
-                data-aos="fade-right" data-aos-delay="400">
-            <img src="{{ asset('frontend-assets/img/images/h2_services_shape02.png') }}" alt=""
-                data-aos="fade-left" data-aos-delay="400">
         </div>
     </section>
+
+    
 
     @include('front.include.cta')
 @endsection
 
 @push('addon-script')
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
-<script>
-    lightGallery(document.getElementById('lightgallery'), {
-        speed: 500,
-    });
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+    <script>
+        lightGallery(document.getElementById('lightgallery'), {
+            speed: 500,
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lightGallery !== 'undefined') {
+                lightGallery(document.getElementById('heroPhotoGallery'), {
+                    selector: 'a',
+                    speed: 500,
+                    download: false,
+                });
+            }
+        });
+    </script>
 @endpush

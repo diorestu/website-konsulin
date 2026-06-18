@@ -18,8 +18,9 @@
 @endpush
 
 @section('content')
-    <!-- slider-area -->
-    <section class="slider__area">
+    <!-- slider-area-old-start -->
+
+    {{-- <section class="slider__area">
         <div class="swiper-container slider__active">
             <div class="swiper-wrapper">
                 <div class="swiper-slide slider__single">
@@ -47,9 +48,202 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="features__area">
+    <!-- slider-area-old-end -->
+
+
+    <!-- slider-area-new-start -->
+    <section class="konsulin-hero">
+        <div class="container">
+            <div class="konsulin-hero-wrapper">
+
+                <div class="konsulin-hero-content">
+                    <span class="konsulin-hero-badge">
+                        MAJU BERSAMA KONSULIN.ID
+                    </span>
+
+                    <h1>
+                        Persiapkan Usaha anda Dengan Matang
+
+                    </h1>
+
+                    <p>
+                        Kami hadir guna membantu para pelaku usaha baik UMKM maupun
+                        UKM dalam penyusunan perencanaan bisnis serta pembukuan laporan
+                        keuangan dengan Pernyataan Standar Akuntasi Keuangan (PSAK) yang berlaku di Indonesia.
+                    </p>
+
+                    <div class="konsulin-hero-actions">
+                        <a href="{{ route('service') }}" class="konsulin-btn-primary">
+                            Lihat Layanan
+                        </a>
+
+                        <a href="{{ route('contact') }}" class="konsulin-btn-outline">
+                            Konsultasi Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                @php
+                    $meetingImages = [
+                        asset('frontend-assets/img/hero/hero1.jpeg'),
+                        asset('frontend-assets/img/hero/hero2.jpeg'),
+                        asset('frontend-assets/img/hero/hero3.jpeg'),
+                        asset('frontend-assets/img/hero/hero4.jpeg'),
+                        asset('frontend-assets/img/hero/hero5.jpeg'),
+                        asset('frontend-assets/img/hero/hero6.jpeg'),
+                    ];
+                @endphp
+
+                <div class="konsulin-hero-visual">
+                    <div class="meeting-stack" id="meetingStack">
+                        @foreach ($meetingImages as $index => $image)
+                            <div class="meeting-card">
+                                <img src="{{ $image }}" alt="Monthly Meeting {{ $index + 1 }}">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- slider-area-new-end -->
+
+
+
+
+    <!-- Klien start -->
+    <section class="kons-trusted">
+        <div class="kons-trusted-container">
+
+
+            <div class="kons-trusted-box">
+                <div class="kons-trusted-heading">
+                    <span>Klien Kami</span>
+                    <h2>Dipercaya Lebih dari 100 Perusahaan untuk Kesuksesan Bisnis</h2>
+                </div>
+                @php
+                    $clients = [
+                        ['image' => '1.png', 'alt' => 'Client 1'],
+                        ['image' => '2.png', 'alt' => 'Client 2'],
+                        ['image' => '3.png', 'alt' => 'Client 3'],
+                        ['image' => '4.png', 'alt' => 'Client 4'],
+                        ['image' => '5.png', 'alt' => 'Client 5'],
+                        ['image' => '6.png', 'alt' => 'Client 6'],
+                        ['image' => '7.png', 'alt' => 'Client 7'],
+                        ['image' => '8.png', 'alt' => 'Client 8'],
+                        ['image' => '9.png', 'alt' => 'Client 9'],
+                        ['image' => '10.png', 'alt' => 'Client 10'],
+                        ['image' => '11.jpg', 'alt' => 'Client 11'],
+                        ['image' => '12.png', 'alt' => 'Client 12'],
+                        ['image' => '13.jpg', 'alt' => 'Stori Digital'],
+                    ];
+                @endphp
+
+                <div class="kons-trusted-marquee">
+                    <div class="kons-trusted-track">
+                        @foreach ($clients as $client)
+                            <div class="kons-trusted-logo">
+                                <img src="{{ asset('frontend-assets/img/clients/' . $client['image']) }}"
+                                    alt="{{ $client['alt'] }}">
+                            </div>
+                        @endforeach
+
+                        {{-- duplicate supaya animasi mulus --}}
+                        @foreach ($clients as $client)
+                            <div class="kons-trusted-logo">
+                                <img src="{{ asset('frontend-assets/img/clients/' . $client['image']) }}"
+                                    alt="{{ $client['alt'] }}">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Klien end -->
+
+    <!-- Layanan start -->
+    <section class="kons-services">
+        <div class="kons-services-container">
+            <div class="kons-services-heading">
+                <span>Layanan Kami</span>
+                <h2>Solusi Terintegrasi untuk Kebutuhan Bisnis Anda</h2>
+                <p>
+                    Kami menyediakan layanan profesional untuk membantu bisnis Anda lebih siap,
+                    tertata, dan berkembang secara berkelanjutan.
+                </p>
+            </div>
+
+            <div class="kons-services-grid">
+                <a href="{{ route('services.laporan_keuangan') }}" class="kons-service-card">
+                    <div class="kons-service-icon">
+                        <img src="{{ asset('frontend-assets/img/menu/tax.png') }}" alt="Tax & Accounting">
+                    </div>
+
+                    <h3>Tax &amp; Accounting</h3>
+                    <p>
+                        Layanan pajak, pembukuan, dan laporan keuangan untuk membantu bisnis
+                        lebih rapi dan patuh regulasi.
+                    </p>
+
+                    <span class="kons-service-link">
+                        Pelajari Selengkapnya
+                        <i>→</i>
+                    </span>
+                </a>
+
+                <a href="{{ route('services.pendirian_pt') }}" class="kons-service-card">
+                    <div class="kons-service-icon">
+                        <img src="{{ asset('frontend-assets/img/menu/pendirian_legalitas.png') }}"
+                            alt="Penerbitan Legalitas">
+                    </div>
+
+                    <h3>Penerbitan Legalitas</h3>
+                    <p>
+                        Pengurusan legalitas usaha dan dokumen perusahaan agar bisnis berjalan
+                        aman dan profesional.
+                    </p>
+
+                    <span class="kons-service-link">
+                        Pelajari Selengkapnya
+                        <i>→</i>
+                    </span>
+                </a>
+
+                <a href="{{ route('services.business_advisory') }}" class="kons-service-card">
+                    <div class="kons-service-icon">
+                        <img src="{{ asset('frontend-assets/img/menu/pengurusan_dokumen.png') }}" alt="Pengurusan Dokumen">
+                    </div>
+
+                    <h3>Business Advisory</h3>
+                    <p>
+                         Membantu pelaku usaha, UMKM, startup, maupun perusahaan dalam menyusun strategi, memperbaiki proses operasional, mengelola keuangan, serta mengambil keputusan bisnis yang lebih tepat dan terukur.
+                    </p>
+
+                    <span class="kons-service-link">
+                        Pelajari Selengkapnya
+                        <i>→</i>
+                    </span>
+                </a>
+            </div>
+            <div class="kons-services-cta">
+                <a href="{{ route('service') }}" class="kons-btn-all-services">
+                    Lihat Semua Layanan
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Layanan end -->
+
+
+
+
+    {{-- <section class="features__area">
         <div class="container-fluid p-0">
             <div class="features__item-wrap">
                 <div class="row g-0">
@@ -89,10 +283,12 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+
+
     <!-- features-area-end -->
-    <!-- about-area -->
-    <section class="about__area-two about__bg" data-background="{{ asset('frontend-assets/img/bg/about_bg.jpg') }}">
+    <!-- about-area-old-start -->
+    {{-- <section class="about__area-two about__bg" data-background="{{ asset('frontend-assets/img/bg/about_bg.jpg') }}">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-8">
@@ -148,13 +344,80 @@
                 data-parallax='{"x" : -80 , "y" : 80 , "rotateZ":80}'>
             <img src="{{ asset('frontend-assets/img/images/h2_about_shape02.png') }}" alt=""
                 data-parallax='{"y" : 100 }'>
-            <img src="{{ asset('frontend-assets/img/images/h2_about_shape03.png') }}" alt="" data-aos="fade-left"
-                data-aos-delay="400">
+            <img src="{{ asset('frontend-assets/img/images/h2_about_shape03.png') }}" alt=""
+                data-aos="fade-left" data-aos-delay="400">
+        </div>
+    </section> --}}
+    <!-- about-area-old-end -->
+
+    <!-- about-area-new-start -->
+    <section class="kons-about">
+        <div class="kons-about-container">
+            <div class="kons-about-image-wrap">
+                <div class="kons-about-image">
+                    <img src="{{ asset('frontend-assets/img/about/about-5.jpg?v=2') }}" alt="Tentang Konsulin.id">
+                </div>
+
+                <div class="kons-about-badge">
+                    <strong>10+</strong>
+                    <span>Tahun Pengalaman</span>
+                </div>
+            </div>
+
+            <div class="kons-about-content">
+                <span class="kons-about-subtitle">Tentang Konsulin.id</span>
+
+                <h2>
+                    Layanan Pajak dan Akuntansi Terbaik untuk Mendukung Pertumbuhan Usaha Anda
+                </h2>
+
+                <p>
+                    Didirikan pada tahun 2024, Konsulin.ID merupakan pionir Virtual Assistant Business
+                    Consultant di Indonesia. Kami tidak selalu hadir secara fisik, namun kami bertanggung
+                    jawab atas tugas-tugas yang telah didelegasikan.
+                </p>
+
+                <div class="kons-about-list">
+                    <div class="kons-about-list-item">
+                        <span>✓</span>
+                        <p>Tax &amp; Accounting</p>
+                    </div>
+
+                    <div class="kons-about-list-item">
+                        <span>✓</span>
+                        <p>Pendirian Legalitas Usaha</p>
+                    </div>
+
+                    <div class="kons-about-list-item">
+                        <span>✓</span>
+                        <p>Pengurusan Dokumen</p>
+                    </div>
+
+                    <div class="kons-about-list-item">
+                        <span>✓</span>
+                        <p>Branding Usaha</p>
+                    </div>
+
+                    <div class="kons-about-list-item">
+                        <span>✓</span>
+                        <p>Virtual Office</p>
+                    </div>
+                </div>
+
+                <div class="kons-about-action">
+                    <a href="{{ route('about') }}" class="kons-about-btn">
+                        Selengkapnya Tentang Kami
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
-    <!-- about-area-end -->
-    
-    <section class="about__area-three about__bg-two" data-background="{{ asset('frontend-assets/img/bg/h3_about_bg.jpg') }}">
+    <!-- about-area-new-end -->
+
+    <!-- about2-area-old-start -->
+    {{-- <section class="about__area-three about__bg-two"
+        data-background="{{ asset('frontend-assets/img/bg/h3_about_bg.jpg') }}">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-9">
@@ -163,7 +426,7 @@
                         <img width="256" src="{{ asset('frontend-assets/img/about/about-6.jpeg') }}" alt="">
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6">
                     <div class="about__content-three">
                         <div class="section-title mb-25">
@@ -171,8 +434,14 @@
                             <h2 class="title">Bertujuan Bantu UMKM dalam Mengatur Keuangan
                             </h2>
                         </div>
-                        <p>Direktur PT Solusi Usaha Adijaya, Adi Putra Rizkillah mengungkapkan, Konsulin.id didirikan dengan tujuan utama membantu para pelaku usaha, khsusunya UMKM untuk mengelola manajemen usaha dengan lebih baik. Konsulin.id dapat memberikan solusi terkait perpajakan usaha dengan membantu para pelaku usaha untuk memahami dan mematuhi pajak dengan baik.</p>
-                        <p>Selain itu, Konsulin.id melayani Pendirian Legalitas seperti PT ,CV, maupun yayasan sehingga para pelaku usaha dapat memulai bisnis nya memiliki legalitas yang kuat, kemudian perencanaan bisnis.  Layanan tersebut termasuk panduan strategis untuk merancang rencana bisnis yang beorientasi keberhasilan dalam jangka panjang ...</p>
+                        <p>Direktur PT Solusi Usaha Adijaya, Adi Putra Rizkillah mengungkapkan, Konsulin.id didirikan dengan
+                            tujuan utama membantu para pelaku usaha, khsusunya UMKM untuk mengelola manajemen usaha dengan
+                            lebih baik. Konsulin.id dapat memberikan solusi terkait perpajakan usaha dengan membantu para
+                            pelaku usaha untuk memahami dan mematuhi pajak dengan baik.</p>
+                        <p>Selain itu, Konsulin.id melayani Pendirian Legalitas seperti PT ,CV, maupun yayasan sehingga para
+                            pelaku usaha dapat memulai bisnis nya memiliki legalitas yang kuat, kemudian perencanaan bisnis.
+                            Layanan tersebut termasuk panduan strategis untuk merancang rencana bisnis yang beorientasi
+                            keberhasilan dalam jangka panjang ...</p>
                         <a href="https://indonesianews.id/ribet-ngurusin-pajak-buat-bisnis-anda-konsulin-id-saja/"
                             class="btn">Baca Selengkapnya di indonesianews.id</a>
                         <div class="about__shape-wrap-three">
@@ -183,10 +452,217 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+    <!-- about2-area-old-end -->
+
+
+    <!-- about2-area-new-start -->
+    <section class="kons-media">
+        <div class="kons-media-container">
+            <div class="kons-media-image-wrap" id="lightgallery">
+                <div class="kons-media-main-image">
+                    <img src="{{ asset('frontend-assets/img/about/about-3.jpg?v=2') }}" alt="Konsulin.id membantu UMKM">
+                </div>
+
+                <div class="kons-media-small-image">
+                    <img src="{{ asset('frontend-assets/img/about/about-6.jpeg') }}"
+                        alt="Konsulin.id dikutip Indonesianews.id">
+                </div>
+
+                <div class="kons-media-badge">
+                    <span>Dikutip oleh</span>
+                    <strong>indonesianews.id</strong>
+                </div>
+            </div>
+
+            <div class="kons-media-content">
+                <span class="kons-media-subtitle">Dikutip oleh indonesianews.id</span>
+
+                <h2>
+                    Bertujuan Bantu UMKM dalam Mengatur Keuangan
+                </h2>
+
+                <p>
+                    Direktur PT Solusi Usaha Adijaya, Adi Putra Rizkillah mengungkapkan,
+                    Konsulin.id didirikan dengan tujuan utama membantu para pelaku usaha,
+                    khususnya UMKM, untuk mengelola manajemen usaha dengan lebih baik.
+                </p>
+
+                <p>
+                    Konsulin.id juga memberikan solusi terkait perpajakan usaha, legalitas,
+                    perencanaan bisnis, serta pendampingan agar pelaku usaha dapat membangun
+                    bisnis dengan lebih tertata dan berkelanjutan.
+                </p>
+
+                <a href="https://indonesianews.id/ribet-ngurusin-pajak-buat-bisnis-anda-konsulin-id-saja/"
+                    class="kons-media-btn" target="_blank" rel="noopener">
+                    Baca Selengkapnya di INDONESIANEWS.ID
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
     </section>
-    
-    <!-- services-area -->
-    <section class="services__area-two">
+    <!-- about2-area-new-end -->
+
+
+    <!-- Why Choose start -->
+    <section class="kons-why">
+        <div class="kons-why-container">
+
+
+            <div class="kons-why-grid">
+                <div class="kons-why-card">
+                    <div class="kons-why-icon">
+                        <i class="flaticon-financial-profit"></i>
+                    </div>
+                    <h3>Perencanaan Keuangan</h3>
+                    <p>
+                        Membantu bisnis menyusun perencanaan keuangan yang lebih efektif,
+                        efisien, dan mudah dipahami.
+                    </p>
+                </div>
+
+                <div class="kons-why-card">
+                    <div class="kons-why-icon">
+                        <i class="flaticon-light-bulb"></i>
+                    </div>
+                    <h3>Solusi Strategis</h3>
+                    <p>
+                        Memberikan arahan dan solusi bisnis yang sesuai dengan kebutuhan
+                        serta kondisi usaha Anda.
+                    </p>
+                </div>
+
+                <div class="kons-why-card">
+                    <div class="kons-why-icon">
+                        <i class="flaticon-profit"></i>
+                    </div>
+                    <h3>Pertumbuhan Bisnis</h3>
+                    <p>
+                        Mendukung pertumbuhan usaha melalui layanan yang terstruktur,
+                        profesional, dan berkelanjutan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="kons-counter-grid">
+                <div class="kons-counter-card">
+                    <div class="kons-counter-icon">
+                        <i class="flaticon-trophy"></i>
+                    </div>
+                    <h3><span class="kons-count-number" data-count="135">0</span>+</h3>
+                    <p>Project terselesaikan dengan baik</p>
+                </div>
+
+                <div class="kons-counter-card">
+                    <div class="kons-counter-icon">
+                        <i class="flaticon-time"></i>
+                    </div>
+                    <h3><span class="kons-count-number" data-count="11">0</span>+</h3>
+                    <p>Tahun pengalaman di industri keuangan</p>
+                </div>
+
+                <div class="kons-counter-card">
+                    <div class="kons-counter-icon">
+                        <i class="flaticon-happy"></i>
+                    </div>
+                    <h3><span class="kons-count-number" data-count="99">0</span>%</h3>
+                    <p>Kepuasan dari klien kami</p>
+                </div>
+
+                <div class="kons-counter-card">
+                    <div class="kons-counter-icon">
+                        <i class="flaticon-china"></i>
+                    </div>
+                    <h3><span class="kons-count-number" data-count="22">0</span>+</h3>
+                    <p>Kota jaringan klien di seluruh Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Why Choose end -->
+
+
+    <!-- Our value new end -->
+    <section class="kons-value">
+        <div class="kons-value-container">
+            <div class="kons-value-content">
+                <span class="kons-value-subtitle">Our Value</span>
+
+                <h2>
+                    Optimalisasi Kualitas dan Pelayanan Terbaik untuk Bisnis Anda
+                </h2>
+
+                <p>
+                    Konsulin.id hadir sebagai konsultan bisnis dan keuangan profesional yang
+                    berintegritas, berkualitas, dan berkompetensi dalam membantu terwujudnya
+                    tata kelola usaha yang lebih baik.
+                </p>
+
+                <div class="kons-value-checklist">
+                    <div>
+                        <span>✓</span>
+                        <p>Terbaik untuk bisnis dan perpajakan</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Akurat, efektif, dan efisien</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Certified Professional Financial Planner</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Certified Financial Advisors</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kons-value-grid">
+                <div class="kons-value-card">
+                    <div class="kons-value-icon">
+                        <i class="flaticon-happy"></i>
+                    </div>
+                    <h3>Pelayanan Terbaik</h3>
+                    <p>Kami berkomitmen memberikan layanan yang tepat, jelas, dan profesional.</p>
+                </div>
+
+                <div class="kons-value-card">
+                    <div class="kons-value-icon">
+                        <i class="flaticon-handshake"></i>
+                    </div>
+                    <h3>Kolaborasi</h3>
+                    <p>Menjaga hubungan positif dan kerja sama yang baik dengan setiap klien.</p>
+                </div>
+
+                <div class="kons-value-card">
+                    <div class="kons-value-icon">
+                        <i class="flaticon-light-bulb"></i>
+                    </div>
+                    <h3>Hadirkan Solusi</h3>
+                    <p>Selalu mencari solusi yang sesuai untuk kebutuhan dan tujuan bisnis.</p>
+                </div>
+
+                <div class="kons-value-card">
+                    <div class="kons-value-icon">
+                        <i class="flaticon-life-insurance"></i>
+                    </div>
+                    <h3>Integritas</h3>
+                    <p>Bertindak jujur, objektif, dan sesuai dengan kode etik profesi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Our value new  start -->
+
+
+    <!-- services-area-our-value-old-start -->
+
+    {{-- <section class="services__area-two">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -250,10 +726,13 @@
             <img src="{{ asset('frontend-assets/img/images/h2_services_shape02.png') }}" alt=""
                 data-aos="fade-left" data-aos-delay="400">
         </div>
-    </section>
-    <!-- services-area-end -->
-    <!-- choose-area -->
-    <section class="choose__area-two" style="margin-top:0px;">
+    </section> --}}
+
+    <!-- services-area-our-value-old-end -->
+
+    <!-- choose-area-old-start -->
+
+    {{-- <section class="choose__area-two" style="margin-top:0px;">
         <div class="choose__bg" data-background="{{ asset('frontend-assets/img/bg/choose_bg.jpg') }}"></div>
         <div class="container">
             <div class="row justify-content-end">
@@ -273,11 +752,11 @@
                                         data-bs-target="#goal-tab-pane" type="button" role="tab"
                                         aria-controls="goal-tab-pane" aria-selected="true">Focus On Goal</button>
                                 </li>
-                                {{-- <li class="nav-item" role="presentation">
+                                <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="management-tab" data-bs-toggle="tab"
                                         data-bs-target="#management-tab-pane" type="button" role="tab"
                                         aria-controls="management-tab-pane" aria-selected="false">Risk Management</button>
-                                </li> --}}
+                                </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="goal-tab-pane" role="tabpanel"
@@ -305,10 +784,89 @@
             <img src="{{ asset('frontend-assets/img/images/h2_choose_shape02.png') }}" alt=""
                 data-aos="fade-left" data-aos-delay="400">
         </div>
+    </section> --}}
+
+    <!-- choose-area-old-end -->
+
+
+    <!-- choose-area-new-start-->
+    <section class="kons-governance">
+        <div class="kons-governance-container">
+
+            @php
+                $governanceMainImage = asset('frontend-assets/img/hero/hero4.jpeg');
+
+                
+            @endphp
+
+            <div class="kons-governance-image">
+                <div class="kons-governance-main-photo">
+                    <img src="{{ $governanceMainImage }}" alt="Konsultan Bisnis dan Keuangan Konsulin.id">
+                </div>
+
+
+                <div class="kons-governance-badge">
+                    <span>Good</span>
+                    <strong>Governance</strong>
+                </div>
+            </div>
+
+            <div class="kons-governance-content">
+                <span class="kons-governance-subtitle">Konsulin.id</span>
+
+                <h2>
+                    Konsultan Bisnis dan Keuangan Profesional untuk Good Governance
+                </h2>
+
+                <p>
+                    Konsulin merupakan jasa akuntan dan konsultan yang profesional, berintegritas,
+                    berkualitas, dan berkompetensi dalam rangka mendorong terwujudnya tata kelola
+                    usaha yang lebih baik di Indonesia.
+                </p>
+
+                <div class="kons-governance-box">
+                    <p>
+                        Kami memberikan jasa profesional konsultasi usaha dengan kompetensi tinggi,
+                        integritas, objektif, dan sesuai standar profesional yang berlaku.
+                    </p>
+
+                    <div class="kons-governance-list">
+                        <div>
+                            <span>✓</span>
+                            <p>Terbaik untuk bisnis dan perpajakan</p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>Akurat, efektif, dan efisien</p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>Certified Professional Financial Planner</p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>Certified Financial Advisors</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ route('contact') }}" class="kons-governance-btn">
+                    Konsultasi Sekarang
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
     </section>
-    <!-- choose-area-two -->
+    <!-- choose-area-new-end -->
+
+
+
+
     <!-- counter-area -->
-    <section class="counter-area-two">
+    {{-- <section class="counter-area-two">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-3 col-lg-4 col-sm-6">
@@ -360,36 +918,13 @@
         <div class="counter-shape-two">
             <img src="{{ asset('frontend-assets/img/images/h2_counter_shape.png') }}" alt="" class="rotateme">
         </div>
-    </section>
+    </section> --}}
     <!-- counter-area-end -->
-    <!-- request-area -->
-    <section class="request__area-two">
-        <div class="request__bg-two" data-background="{{ asset('frontend-assets/img/bg/h2_request_bg.jpg') }}"></div>
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-xl-5 col-lg-6">
-                    <div class="request__content-two">
-                        <h2 class="title">Menyajikan Pengalaman <span>Terbaik dalam</span> Layanan Usaha</h2>
-                        <div class="request__phone">
-                            <div class="icon">
-                                <i class="flaticon-phone-call"></i>
-                            </div>
-                            <div class="content">
-                                <span>Konsultasi Gratis</span>
-                                <a
-                                    href="tel:{{ getCompanyProfile()->phone_com1 }}">+{{ getCompanyProfile()->phone_com1 }}</a>
-                            </div>
-                        </div>
-                        <a href="https://wa.me/6285183440300?text=Halo, Saya ingin berbicara lebih lanjut terkait konsultasi bisnis dan keuangan [WEBSITE]"
-                            class="btn">Whatsapp Kami Sekarang</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- request-area-end -->
+
+    
+
     <!-- project-area -->
-    <section class="services__area-two services__bg-six">
+    {{-- <section class="services__area-two services__bg-six">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8">
@@ -519,7 +1054,8 @@
                                             alt="">
                                     </div>
                                     <div class="services__content-four">
-                                        <h2 class="title"><a href="{{ route('services.pendirian_pt') }}">Pendirian Badan Usaha</a></h2>
+                                        <h2 class="title"><a href="{{ route('services.pendirian_pt') }}">Pendirian Badan
+                                                Usaha</a></h2>
                                         <p>Kami menawarkan layanan pendirian PT Perorangan dengan proses cepat dan mudah,
                                             memastikan legalitas usaha Anda terpenuhi sesuai dengan peraturan yang berlaku.
                                         </p>
@@ -591,9 +1127,9 @@
             <img src="{{ asset('frontend-assets/img/images/h2_services_shape02.png') }}" alt=""
                 data-aos="fade-left" data-aos-delay="400">
         </div>
-    </section>
+    </section> --}}
 
-    <div class="brand__area-two">
+    {{-- <div class="brand__area-two">
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-lg-8">
@@ -673,10 +1209,86 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @include('front.include.cta')
 @endsection
 
 @push('addon-script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stack = document.querySelector('#meetingStack');
+            const cards = Array.from(document.querySelectorAll('#meetingStack .meeting-card'));
+
+            if (!stack || cards.length <= 1) return;
+
+            const positionClasses = [
+                'is-active',
+                'is-second',
+                'is-third',
+                'is-fourth',
+                'is-hidden'
+            ];
+
+            const directions = ['from-right', 'from-top', 'from-back'];
+            let directionIndex = 0;
+            let order = cards.map((_, index) => index);
+
+            function renderCards() {
+                cards.forEach(card => {
+                    card.classList.remove(...positionClasses);
+                });
+
+                order.forEach((cardIndex, positionIndex) => {
+                    const card = cards[cardIndex];
+
+                    if (positionIndex === 0) {
+                        card.classList.add('is-active');
+                    } else if (positionIndex === 1) {
+                        card.classList.add('is-second');
+                    } else if (positionIndex === 2) {
+                        card.classList.add('is-third');
+                    } else if (positionIndex === 3) {
+                        card.classList.add('is-fourth');
+                    } else {
+                        card.classList.add('is-hidden');
+                    }
+                });
+            }
+
+            function nextPhoto() {
+                const currentDirection = directions[directionIndex];
+
+                stack.classList.remove('from-right', 'from-top', 'from-back', 'is-changing');
+
+                order.unshift(order.pop());
+
+                renderCards();
+
+                stack.classList.add('is-changing', currentDirection);
+
+                directionIndex = (directionIndex + 1) % directions.length;
+
+                setTimeout(() => {
+                    stack.classList.remove('is-changing');
+                }, 900);
+            }
+
+            renderCards();
+
+            let autoplay = setInterval(nextPhoto, 2800);
+
+            stack.addEventListener('mouseenter', () => {
+                clearInterval(autoplay);
+            });
+
+            stack.addEventListener('mouseleave', () => {
+                autoplay = setInterval(nextPhoto, 2800);
+            });
+        });
+    </script>
 @endpush
+
+
+@include('scripts.script')
+@include('scripts.animation')

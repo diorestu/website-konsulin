@@ -3,8 +3,16 @@
 
 <head>
     @include('front.include.meta')
+
     <title>@yield('title') | Konsulin.id - Konsultan Bisnis &amp; Keuangan</title>
+
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets/img/favicon.png') }}">
+
+    {{-- Google Font: Geist --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
     @include('front.include.style')
     @stack('addon-style')
 </head>

@@ -10,6 +10,7 @@ use App\Models\PortfolioImages;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Mail\Contact as ContactMail;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use Mail;
 
 class FrontController extends Controller
@@ -66,7 +67,7 @@ class FrontController extends Controller
         $ct_pesan                   = $input['message'];
         $ct_subject                 = "Pesan dari Calon Klien - Konsulin [Website]";
         
-        Mail::to($kepada)->send(new ContactMail($judul, $deskripsi, $ct_name, $ct_phone, $ct_email, $ct_pesan, $ct_subject));
+        FacadesMail::to($kepada)->send(new ContactMail($judul, $deskripsi, $ct_name, $ct_phone, $ct_email, $ct_pesan, $ct_subject));
         
         if ($berhasilTambah) {
             // echo "Pesan berhasil terkirim";
@@ -99,6 +100,10 @@ class FrontController extends Controller
     public function npwp()
     {
         return view("front.pages.services.npwp");
+    }
+    public function business_advisory()
+    {
+        return view('front.pages.services.business_advisory');
     }
     public function pengurusan_sertifikat()
     {

@@ -1,4 +1,6 @@
-<div id="header-fixed-height"></div>
+{{-- Header Lama start --}}
+
+{{-- <div id="header-fixed-height"></div>
 <header class="tg-header__style-two">
     <div class="tg-header__inner-wrap">
         <div class="tg-header__logo-wrap">
@@ -259,4 +261,172 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
+
+{{-- Header Lama end --}}
+
+
+
+
+{{-- Header Baru Start --}}
+
+<header class="kons-header">
+    <div class="kons-header-container">
+        <a href="{{ route('homepage') }}" class="kons-logo">
+            <img src="{{ asset('frontend-assets/img/logo/logo-color.png') }}" alt="{{ getCompanyProfile()->brand_com }}">
+        </a>
+
+        <nav class="kons-nav">
+            <ul>
+                <li>
+                    <a href="{{ route('homepage') }}" class="{{ request()->routeIs('homepage') ? 'active' : '' }}">
+                        Beranda
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">
+                        Tentang Kami
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('value') }}" class="{{ request()->routeIs('value') ? 'active' : '' }}">
+                        Nilai Kami
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('service') }}"
+                        class="menu-service-pulse {{ request()->routeIs('service') ? 'active' : '' }}">
+                        Jasa &amp; Layanan
+                        <span class="menu-pulse-dot"></span>
+                    </a>
+                </li>
+
+                {{-- <li>
+                    <a href="{{ route('testimonial') }}"
+                        class="{{ request()->routeIs('testimonial') ? 'active' : '' }}">
+                        Testimoni
+                    </a>
+                </li> --}}
+
+                <li>
+                    <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+                        Kontak
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="kons-header-action">
+            <a href="{{ route('contact') }}" class="kons-header-btn">
+                Konsultasi Gratis
+                <span>→</span>
+            </a>
+
+            <button type="button" class="kons-mobile-toggle" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="kons-mobile-menu">
+        <a href="{{ route('homepage') }}">Beranda</a>
+        <a href="{{ route('about') }}">Tentang Kami</a>
+        <a href="{{ route('value') }}">Nilai Kami</a>
+        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">Jasa &amp; Layanan</a>
+        <a href="{{ route('testimonial') }}">Testimoni</a>
+        <a href="{{ route('contact') }}">Kontak</a>
+
+        <a href="{{ route('contact') }}" class="kons-mobile-btn">
+            Konsultasi Gratis
+            <span>→</span>
+        </a>
+    </div>
+</header>
+
+{{-- <div id="exampleModal" class="modal modalMenu kons-service-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close kons-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="kons-modal-heading">
+                    <span>Layanan Kami</span>
+                    <h3>Pilih Jasa &amp; Layanan</h3>
+                    <p>Temukan layanan yang sesuai dengan kebutuhan bisnis Anda.</p>
+                </div>
+
+                <div class="kons-modal-grid">
+                    <a href="{{ route('services.pendirian_pt') }}" class="kons-modal-card">
+                        <div class="kons-modal-icon">
+                            <img src="{{ asset('frontend-assets/img/menu/pendirian_legalitas.png') }}" alt="Penerbitan Legalitas">
+                        </div>
+                        <div>
+                            <h4>Penerbitan Legalitas</h4>
+                            <p>Pengurusan legalitas usaha dan dokumen perusahaan.</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('services.laporan_keuangan') }}" class="kons-modal-card">
+                        <div class="kons-modal-icon">
+                            <img src="{{ asset('frontend-assets/img/menu/tax.png') }}" alt="Tax & Accounting">
+                        </div>
+                        <div>
+                            <h4>Tax &amp; Accounting</h4>
+                            <p>Layanan pajak, pembukuan, dan laporan keuangan.</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('services.virtual_office') }}" class="kons-modal-card">
+                        <div class="kons-modal-icon">
+                            <img src="{{ asset('frontend-assets/img/menu/virtual_office.png') }}" alt="Virtual Office">
+                        </div>
+                        <div>
+                            <h4>Virtual Office</h4>
+                            <p>Alamat bisnis profesional untuk kebutuhan usaha.</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('services.branding') }}" class="kons-modal-card">
+                        <div class="kons-modal-icon">
+                            <img src="{{ asset('frontend-assets/img/menu/branding.png') }}" alt="Branding Usaha">
+                        </div>
+                        <div>
+                            <h4>Branding Usaha</h4>
+                            <p>Dukungan branding agar bisnis terlihat lebih profesional.</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('services.npwp') }}" class="kons-modal-card">
+                        <div class="kons-modal-icon">
+                            <img src="{{ asset('frontend-assets/img/menu/pengurusan_dokumen.png') }}" alt="Pengurusan Dokumen">
+                        </div>
+                        <div>
+                            <h4>Pengurusan Dokumen</h4>
+                            <p>Pengurusan dokumen pajak, usaha, dan administrasi.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('.kons-header');
+        const toggle = document.querySelector('.kons-mobile-toggle');
+
+        if (header && toggle) {
+            toggle.addEventListener('click', function() {
+                header.classList.toggle('is-open');
+            });
+        }
+    });
+</script>
+
+{{-- Header Baru End --}}
