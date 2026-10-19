@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'url' => env('SEO_SITE_URL', env('APP_URL', 'https://konsulin.id')),
+    'url' => env('SEO_SITE_URL', 'https://konsulin.id'),
+    'fallback_url' => 'https://konsulin.id',
+    'share_image' => '/images/og-konsulin-share-v3.jpg',
     'indexable' => env('SEO_INDEXABLE', env('APP_ENV') === 'production'),
     'google_verification' => env('GOOGLE_SITE_VERIFICATION'),
     'bing_verification' => env('BING_SITE_VERIFICATION'),

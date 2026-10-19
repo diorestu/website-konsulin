@@ -2,9 +2,39 @@
 <html lang="id">
 <head>
     @php($seo = $page['props']['seo'])
-    <title data-inertia="">{{ $seo['title'] }} — Konsulin</title>
     <meta charset="utf-8">
+    <title data-inertia="">{{ $seo['title'] }} — Konsulin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" data-inertia="description" content="{{ $seo['description'] }}">
+    <meta name="robots" data-inertia="robots" content="{{ $seo['robots'] }}">
+    @if (config('seo.google_verification'))
+        <meta name="google-site-verification" content="{{ config('seo.google_verification') }}">
+    @endif
+    @if (config('seo.bing_verification'))
+        <meta name="msvalidate.01" content="{{ config('seo.bing_verification') }}">
+    @endif
+    <script type="application/ld+json">@json(\App\Support\PageSeo::organization())</script>
+    <link rel="canonical" data-inertia="canonical" href="{{ $seo['canonical'] }}">
+    <meta property="og:title" data-inertia="og:title" content="{{ $seo['title'] }} — Konsulin">
+    <meta property="og:description" data-inertia="og:description" content="{{ $seo['description'] }}">
+    <meta property="og:url" data-inertia="og:url" content="{{ $seo['canonical'] }}">
+    <meta name="twitter:title" data-inertia="twitter:title" content="{{ $seo['title'] }} — Konsulin">
+    <meta name="twitter:description" data-inertia="twitter:description" content="{{ $seo['description'] }}">
+    <script type="application/ld+json" data-inertia="breadcrumbs">@json($seo['schema'])</script>
+    <meta name="theme-color" content="#14213d">
+    <link rel="icon" href="{{ asset('favicon.webp') }}?v=3" type="image/webp" sizes="480x480">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Konsulin.id">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:image" data-inertia="og:image" content="{{ $seo['image'] }}">
+    <meta property="og:image:secure_url" data-inertia="og:image:secure_url" content="{{ $seo['image'] }}">
+    <meta property="og:image:type" data-inertia="og:image:type" content="{{ $seo['imageType'] }}">
+    <meta property="og:image:width" data-inertia="og:image:width" content="{{ $seo['imageWidth'] }}">
+    <meta property="og:image:height" data-inertia="og:image:height" content="{{ $seo['imageHeight'] }}">
+    <meta property="og:image:alt" data-inertia="og:image:alt" content="{{ $seo['imageAlt'] }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" data-inertia="twitter:image" content="{{ $seo['image'] }}">
+    <meta name="twitter:image:alt" content="Konsulin.id — Adi Putra &amp; Partners">
     @if ($seo['tagManagerId'])
         <script>
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -25,35 +55,6 @@
             fbq('init', @json($seo['metaPixelId']));
         </script>
     @endif
-    <meta name="description" data-inertia="description" content="{{ $seo['description'] }}">
-    <meta name="robots" data-inertia="robots" content="{{ $seo['robots'] }}">
-    @if (config('seo.google_verification'))
-        <meta name="google-site-verification" content="{{ config('seo.google_verification') }}">
-    @endif
-    @if (config('seo.bing_verification'))
-        <meta name="msvalidate.01" content="{{ config('seo.bing_verification') }}">
-    @endif
-    <script type="application/ld+json">@json(\App\Support\PageSeo::organization())</script>
-    <link rel="canonical" data-inertia="canonical" href="{{ $seo['canonical'] }}">
-    <meta property="og:title" data-inertia="og:title" content="{{ $seo['title'] }} — Konsulin">
-    <meta property="og:description" data-inertia="og:description" content="{{ $seo['description'] }}">
-    <meta property="og:url" data-inertia="og:url" content="{{ $seo['canonical'] }}">
-    <meta name="twitter:title" data-inertia="twitter:title" content="{{ $seo['title'] }} — Konsulin">
-    <meta name="twitter:description" data-inertia="twitter:description" content="{{ $seo['description'] }}">
-    <script type="application/ld+json" data-inertia="breadcrumbs">@json($seo['schema'])</script>
-    <meta name="theme-color" content="#14213d">
-    <link rel="icon" href="{{ asset('favicon.webp') }}" type="image/webp" sizes="64x64">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Konsulin.id">
-    <meta property="og:locale" content="id_ID">
-    <meta property="og:image" data-inertia="og:image" content="{{ $seo['image'] }}">
-    <meta property="og:image:type" content="image/webp">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="1200">
-    <meta property="og:image:alt" content="Konsulin.id — Adi Putra &amp; Partners, Kantor Jasa Akuntan &amp; Konsultan Hukum Perpajakan">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" data-inertia="twitter:image" content="{{ $seo['image'] }}">
-    <meta name="twitter:image:alt" content="Konsulin.id — Adi Putra &amp; Partners">
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.tsx'])
     @inertiaHead

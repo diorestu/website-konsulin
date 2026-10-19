@@ -5,6 +5,10 @@ export type SeoMetadata = {
     description: string;
     canonical: string;
     image: string;
+    imageType: string;
+    imageWidth: number;
+    imageHeight: number;
+    imageAlt: string;
     robots: string;
     analyticsId: string | null;
     tagManagerId: string | null;
@@ -24,6 +28,11 @@ export default function SeoHead() {
         <meta property="og:description" head-key="og:description" content={seo.description} />
         <meta property="og:url" head-key="og:url" content={seo.canonical} />
         <meta property="og:image" head-key="og:image" content={seo.image} />
+        <meta property="og:image:secure_url" head-key="og:image:secure_url" content={seo.image} />
+        <meta property="og:image:type" head-key="og:image:type" content={seo.imageType} />
+        <meta property="og:image:width" head-key="og:image:width" content={String(seo.imageWidth)} />
+        <meta property="og:image:height" head-key="og:image:height" content={String(seo.imageHeight)} />
+        <meta property="og:image:alt" head-key="og:image:alt" content={seo.imageAlt} />
         <meta name="twitter:title" head-key="twitter:title" content={`${seo.title} — Konsulin`} />
         <meta name="twitter:description" head-key="twitter:description" content={seo.description} />
         <meta name="twitter:image" head-key="twitter:image" content={seo.image} />

@@ -8,7 +8,16 @@ class PageSeo
 {
     public static function url(string $path = '/'): string
     {
-        return rtrim(config('seo.url'), '/').'/'.ltrim($path, '/');
+        $base = config('seo.url');
+        $host = strtolower(parse_url($base, PHP_URL_HOST) ?? '');
+        $localAddress = in_array($host, ['localhost', '::1', '[::1]'], true)
+            || str_ends_with($host, '.localhost')
+            || (filter_var($host, FILTER_VALIDATE_IP) && ! filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE));
+        if (! filter_var($base, FILTER_VALIDATE_URL) || $localAddress || ! in_array(parse_url($base, PHP_URL_SCHEME), ['http', 'https'], true)) {
+            $base = config('seo.fallback_url');
+        }
+
+        return rtrim($base, '/').'/'.ltrim($path, '/');
     }
 
     public static function forRequest(Request $request): array
@@ -52,7 +61,11 @@ class PageSeo
             'title' => $metadata['title'],
             'description' => $metadata['description'],
             'canonical' => $canonical,
-            'image' => self::url('/images/og-konsulin.webp'),
+            'image' => self::url(config('seo.share_image')),
+            'imageType' => 'image/jpeg',
+            'imageWidth' => 1200,
+            'imageHeight' => 630,
+            'imageAlt' => 'Konsulin.id — Adi Putra & Partners, Kantor Jasa Akuntan & Konsultan Hukum Perpajakan',
             'robots' => config('seo.indexable') ? 'index, follow, max-image-preview:large' : 'noindex, nofollow',
             'analyticsId' => config('seo.indexable') && preg_match('/^G-[A-Z0-9]+$/', config('seo.ga4_id') ?? '') ? config('seo.ga4_id') : null,
             'tagManagerId' => config('seo.indexable') && preg_match('/^GTM-[A-Z0-9]+$/', config('seo.gtm_id') ?? '') ? config('seo.gtm_id') : null,

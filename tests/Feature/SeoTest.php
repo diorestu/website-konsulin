@@ -37,7 +37,7 @@ class SeoTest extends TestCase
             $this->assertSame($url, $canonical->item(0)->getAttribute('href'));
             $this->assertNotEmpty($description->item(0)->getAttribute('content'));
             $this->assertSame($url, $xpath->query('//head/meta[@property="og:url"]')->item(0)->getAttribute('content'));
-            $this->assertSame('https://konsulin.test/images/og-konsulin.webp', $xpath->query('//head/meta[@property="og:image"]')->item(0)->getAttribute('content'));
+            $this->assertSame('https://konsulin.test/images/og-konsulin-share-v3.jpg', $xpath->query('//head/meta[@property="og:image"]')->item(0)->getAttribute('content'));
             $this->assertJson($xpath->query('//head/script[@type="application/ld+json"]')->item(0)->textContent);
             $titles[] = $title->item(0)->textContent;
             $descriptions[] = $description->item(0)->getAttribute('content');
@@ -174,5 +174,39 @@ class SeoTest extends TestCase
         $this->get('/')->assertOk()->assertDontSee('https://connect.facebook.net/en_US/fbevents.js', false)
             ->assertInertia(fn (Assert $page) => $page
                 ->where('seo.tagManagerId', null)->where('seo.metaPixelId', null));
+    }
+
+    public function test_local_configuration_cannot_publish_loopback_social_urls(): void
+    {
+        foreach (['http://127.0.0.1:8073', 'http://localhost:8073', 'http://192.168.1.20', 'http://[::1]:8073'] as $url) {
+            config(['seo.url' => $url]);
+            $this->get('/tentang-kami')->assertOk()->assertInertia(fn (Assert $page) => $page
+                ->where('seo.canonical', 'https://konsulin.id/tentang-kami')
+                ->where('seo.image', 'https://konsulin.id/images/og-konsulin-share-v3.jpg'));
+        }
+    }
+
+    public function test_whatsapp_and_meta_crawlers_receive_complete_preview_metadata_without_javascript(): void
+    {
+        foreach (['WhatsApp/2.24.0', 'facebookexternalhit/1.1'] as $agent) {
+            foreach (PageSeo::sitemapUrls() as $url) {
+                $response = $this->get(parse_url($url, PHP_URL_PATH), ['User-Agent' => $agent])->assertOk();
+                $document = new DOMDocument;
+                $document->loadHTML($response->getContent(), LIBXML_NOERROR | LIBXML_NOWARNING);
+                $xpath = new DOMXPath($document);
+                foreach (['og:title', 'og:description', 'og:image', 'og:url'] as $property) {
+                    $nodes = $xpath->query('//head/meta[@property="'.$property.'"]');
+                    $this->assertCount(1, $nodes);
+                    $this->assertNotEmpty($nodes->item(0)->getAttribute('content'));
+                    $this->assertLessThan(8192, strpos($response->getContent(), 'property="'.$property.'"'));
+                }
+                $this->assertSame('image/jpeg', $xpath->query('//head/meta[@property="og:image:type"]')->item(0)->getAttribute('content'));
+                $this->assertSame('630', $xpath->query('//head/meta[@property="og:image:height"]')->item(0)->getAttribute('content'));
+            }
+        }
+        $image = getimagesize(public_path('images/og-konsulin-share-v3.jpg'));
+        $this->assertSame(1200, $image[0]);
+        $this->assertSame(630, $image[1]);
+        $this->assertSame('image/jpeg', $image['mime']);
     }
 }
