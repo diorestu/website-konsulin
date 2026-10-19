@@ -10,12 +10,11 @@ const values = [
 ];
 
 const companyValues = [
-    'Terbaik Untuk Bisnis dan Perpajakan',
     'Akurat, Efektif, Efisien',
-    'Certified Professional Financial Planner',
-    'Certified Financial Advisors',
     'Bersertifikat Konsultan Pajak Terdaftar',
     'Bersertifikat Kuasa Hukum Pengadilan Perpajakan Resmi',
+    'Certified Professional Financial Planner',
+    'Certified Financial Advisors',
 ];
 
 export default function Values() {
