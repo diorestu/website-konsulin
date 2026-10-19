@@ -1,66 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Konsulin
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website layanan pajak, akuntansi, konsultasi bisnis, dan pendampingan. Dibangun dengan Laravel 13, Inertia 3, React 19, TypeScript, Vite, dan Motion.
 
-## About Laravel
+## Menjalankan lokal
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Kebutuhan: PHP 8.4+, Composer, Node.js 22.12+ (atau Node 24), ekstensi SQLite.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+php artisan migrate
+npm ci
+npm run build
+php artisan serve --host=127.0.0.1 --port=8073
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Buka http://127.0.0.1:8073. Untuk pengembangan frontend, jalankan `npm run dev` pada terminal terpisah. Script memakai `vite.config.ts`. `vite.config.js` dan berkas welcome bawaan scaffold tidak digunakan oleh halaman baru.
 
-## Learning Laravel
+## Fitur
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Beranda berbahasa Indonesia: hero, pilihan layanan interaktif, profil pendekatan, alur kerja, FAQ, formulir konsultasi.
+- Navigasi mobile, keyboard tabs dengan Arrow/Home/End, Escape untuk menu, skip link, indikator fokus.
+- Reveal satu kali, transisi layanan, dan dukungan `prefers-reduced-motion` tanpa scroll hijacking.
+- Font Poppins disimpan lokal melalui Fontsource dan digunakan secara global.
+- Halaman `/privasi` menjelaskan data yang dicatat oleh formulir.
+- POST `/konsultasi`: validasi server, persetujuan, honeypot, CSRF, serta pembatasan 5 permintaan per menit per alamat IP.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Permintaan konsultasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Permintaan disimpan di tabel `consultation_requests`. **Notifikasi email dan WhatsApp belum diaktifkan** karena alamat tujuan belum diberikan. Konfirmasi UI hanya menyatakan penyimpanan berhasil. Tidak ada route publik untuk melihat permintaan.
 
-## Laravel Sponsors
+Untuk memeriksa permintaan pada lingkungan lokal yang dikelola sendiri:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```sh
+php artisan tinker
+```
 
-### Premium Partners
+```php
+DB::table('consultation_requests')->latest()->limit(20)->get();
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Jangan menyalin hasil yang mengandung data pribadi ke log publik. Integrasi notifikasi dan panel pengelolaan dapat ditambahkan setelah alamat tujuan serta kebutuhan akses ditentukan.
 
-## Contributing
+## Mengubah konten dan desain
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `config/konsulin.php`: pilihan layanan beserta ruang lingkupnya.
+- `resources/js/Pages/Home.tsx`: komposisi dan copy halaman utama.
+- `resources/js/Components/ConsultationForm.tsx`: formulir dan feedback.
+- `resources/js/Pages/Privacy.tsx`: penjelasan penggunaan data sesuai perilaku aplikasi.
+- `tokens.css`: token warna, font, ruang, radius, dan timing.
+- `resources/css/app.css`: layout dan responsive rules.
 
-## Code of Conduct
+Warna brand `#0096c7` dan `#14213d` didefinisikan sebagai ekuivalen OKLCH di token. Warna teks biru kecil memakai varian lebih gelap untuk keterbacaan. Tidak ada statistik, testimoni, sertifikasi, atau logo klien rekaan.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Verifikasi
 
-## Security Vulnerabilities
+```sh
+php artisan test --compact
+vendor/bin/pint --test
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Browser QA memakai Playwright dengan Chrome lokal (Browser plugin tidak tersedia). Layout diperiksa pada 320, 375, 414, 768, 1024, dan 1440 px. Interaksi yang diperiksa: pilihan layanan via klik/keyboard, pengisian layanan ke formulir, penyimpanan dan reset formulir, FAQ, menu mobile, Escape/fokus, reduced motion, halaman privasi, serta error jaringan dan rate limit. Screenshot dan script QA sementara disimpan di luar repository.
 
-## License
+## Referensi dan aset
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Struktur layanan mengambil inspirasi dari https://jhontax.co, dengan komposisi, identitas, dan copy Konsulin sendiri. Tidak mengambil profil, klaim, kontak, atau testimoni JhonTax.
+
+Foto arsitektur dan ruang kerja bersumber dari Unsplash; keduanya ilustrasi konteks bisnis, bukan dokumentasi kantor atau tim Konsulin:
+
+- https://images.unsplash.com/photo-1486406146926-c627a92ad1ab
+- https://images.unsplash.com/photo-1497366754035-f200968a6e72
+
+## Deployment
+
+Arahkan document root server ke `public/`. Konfigurasikan database, domain HTTPS, `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL` sesuai domain, dan cookie aman. Jalankan migrasi, build aset, serta `php artisan optimize`. Kredensial `.env`, database SQLite, `vendor/`, dan `node_modules/` tidak disimpan di Git. Formulir memerlukan prosedur internal penanganan permintaan sebelum digunakan sebagai saluran konsultasi operasional.
