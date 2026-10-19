@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import Icon from './Icon';
 import type { Service } from '../types';
 import { getServiceWhatsAppUrl } from '../contact';
@@ -10,12 +10,13 @@ export default function ServiceDirectory({
     services: Service[];
     directWhatsApp?: boolean;
 }) {
+    const { url } = usePage();
     return <ul className="service-directory" aria-label="Our services">
         {services.map(service => <li key={service.id}>
             {directWhatsApp ? (
                 <a
                     className="service-directory-link"
-                    href={getServiceWhatsAppUrl(service.name)}
+                    href={getServiceWhatsAppUrl(service, url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-labelledby={`service-title-${service.id}`}

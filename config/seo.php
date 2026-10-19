@@ -1,0 +1,87 @@
+<?php
+
+return [
+    'url' => env('SEO_SITE_URL', env('APP_URL', 'https://konsulin.id')),
+    'indexable' => env('SEO_INDEXABLE', env('APP_ENV') === 'production'),
+    'google_verification' => env('GOOGLE_SITE_VERIFICATION'),
+    'bing_verification' => env('BING_SITE_VERIFICATION'),
+    'ga4_id' => env('GOOGLE_ANALYTICS_ID'),
+    'gtm_id' => env('GOOGLE_TAG_MANAGER_ID'),
+    'meta_pixel_id' => env('META_PIXEL_ID'),
+    'organization' => [
+        'name' => 'Konsulin.id — Adi Putra & Partners',
+        'email' => 'info@konsulin.id',
+        'telephone' => '+6285183440300',
+        'sameAs' => [
+            'https://www.instagram.com/konsulinn.id/',
+            'https://www.tiktok.com/@lifeatkonsulin',
+            'https://www.linkedin.com/company/konsulinid',
+        ],
+    ],
+    'redirects' => [
+        '/layanan-dan-jasa' => '/layanan',
+        '/layanan-dan-jasa/pembuatan-laporan-keuangan' => '/layanan/akuntansi',
+        '/layanan-dan-jasa/pengurusan-pelaporan-pajak' => '/layanan/perpajakan',
+        '/layanan-dan-jasa/perencanaan-model-usaha' => '/layanan/konsultasi',
+        '/layanan-dan-jasa/businees-advisory' => '/layanan/konsultasi',
+    ],
+    'pages' => [
+        'home' => [
+            'title' => 'Konsultan Pajak & Jasa Akuntansi Terpercaya',
+            'description' => 'Konsulin mendampingi pajak, akuntansi, laporan keuangan, dan pengelolaan usaha Anda. Kenali layanan kami di Tangerang, Bali, dan Surabaya.',
+            'label' => 'Beranda',
+            'related' => ['services.index', 'about', 'contact'],
+        ],
+        'about' => [
+            'title' => 'Tentang Kami | Tim Konsultan Pajak & Akuntansi',
+            'description' => 'Kenali Konsulin.id — Adi Putra & Partners, tim direksi, serta pendekatan kami dalam mendampingi akuntansi, perpajakan, dan pengelolaan usaha Anda.',
+            'label' => 'Tentang Kami',
+            'related' => ['values', 'services.index', 'contact'],
+        ],
+        'values' => [
+            'title' => 'Nilai Kami | Integritas dalam Pajak & Akuntansi',
+            'description' => 'Pelayanan terbaik, kolaborasi, solusi, dan integritas menjadi nilai Konsulin dalam mendampingi kebutuhan pajak, akuntansi, dan pengelolaan bisnis.',
+            'label' => 'Nilai Kami',
+            'related' => ['about', 'services.index', 'contact'],
+        ],
+        'services.index' => [
+            'title' => 'Layanan Pajak, Akuntansi & Business Advisory',
+            'description' => 'Pilih 13 layanan Konsulin: laporan keuangan, SPT, TPDoc, restitusi, PKP, Coretax, hingga Business Advisory. Baca detail dan diskusikan kebutuhan Anda.',
+            'label' => 'Layanan Pajak & Akuntansi',
+            'related' => ['about', 'values', 'contact'],
+        ],
+        'blog' => [
+            'title' => 'Blog Pajak, Akuntansi & Pengelolaan Usaha',
+            'description' => 'Ruang baca Konsulin tentang pajak, akuntansi, dan pengelolaan usaha. Artikel sedang disiapkan; jelajahi layanan dan diskusikan kebutuhan bisnis Anda.',
+            'label' => 'Blog Pajak & Akuntansi',
+            'related' => ['services.index', 'about', 'contact'],
+        ],
+        'contact' => [
+            'title' => 'Hubungi Konsultan Pajak | Tangerang, Bali, Surabaya',
+            'description' => 'Hubungi Konsulin untuk konsultasi pajak dan akuntansi. Temukan kontak, peta kantor Tangerang, Bali, Surabaya, dan formulir untuk kebutuhan usaha Anda.',
+            'label' => 'Kontak & Lokasi Kantor',
+            'related' => ['services.index', 'about', 'values'],
+        ],
+        'privacy' => [
+            'title' => 'Privasi Data Permintaan Konsultasi',
+            'description' => 'Pelajari data yang dicatat, tujuan penggunaan, penyimpanan, dan persetujuan pada formulir konsultasi Konsulin sebelum mengirim kebutuhan usaha Anda.',
+            'label' => 'Privasi Konsultasi',
+            'related' => ['contact', 'about', 'services.index'],
+        ],
+    ],
+    'services' => [
+        'laporan-bulanan' => ['title' => 'Jasa Laporan Keuangan & Pajak Bulanan', 'related' => ['akuntansi', 'perpajakan', 'spt-tahunan']],
+        'perpajakan' => ['title' => 'Jasa Pelaporan SPT Masa & Pajak Bulanan', 'related' => ['laporan-bulanan', 'spt-tahunan', 'coretax-badan']],
+        'spt-tahunan' => ['title' => 'Jasa SPT Tahunan Pribadi, Badan & BUT', 'related' => ['akuntansi', 'coretax-pribadi', 'coretax-badan']],
+        'banding-gugatan' => ['title' => 'Pendampingan Banding & Gugatan Pajak', 'related' => ['restitusi-pajak', 'akuntansi', 'perpajakan']],
+        'akuntansi' => ['title' => 'Jasa Laporan Keuangan Komersial & Fiskal', 'related' => ['laporan-bulanan', 'spt-tahunan', 'laporan-kap']],
+        'laporan-kap' => ['title' => 'Laporan Keuangan Kantor Akuntan Publik', 'related' => ['akuntansi', 'laporan-bulanan', 'konsultasi']],
+        'tax-opinion-investor-asing' => ['title' => 'Tax Opinion untuk Investor Asing', 'related' => ['tpdoc', 'konsultasi', 'akuntansi']],
+        'tpdoc' => ['title' => 'Jasa Transfer Pricing Documentation (TPDoc)', 'related' => ['tax-opinion-investor-asing', 'akuntansi', 'spt-tahunan']],
+        'restitusi-pajak' => ['title' => 'Jasa Pendampingan Restitusi Pajak', 'related' => ['perpajakan', 'akuntansi', 'banding-gugatan']],
+        'konsultasi' => ['title' => 'Business Advisory & Konsultasi Usaha', 'related' => ['akuntansi', 'laporan-bulanan', 'tax-opinion-investor-asing']],
+        'pengukuhan-pkp' => ['title' => 'Jasa Pendaftaran & Pengukuhan PKP', 'related' => ['coretax-badan', 'perpajakan', 'laporan-bulanan']],
+        'coretax-pribadi' => ['title' => 'Jasa Pengurusan Coretax Orang Pribadi', 'related' => ['spt-tahunan', 'coretax-badan', 'perpajakan']],
+        'coretax-badan' => ['title' => 'Jasa Pengurusan Coretax Badan Usaha', 'related' => ['pengukuhan-pkp', 'perpajakan', 'spt-tahunan']],
+    ],
+];

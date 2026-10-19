@@ -1,13 +1,14 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import SiteHeader from '../Components/SiteHeader';
+import SeoHead from '../Components/SeoHead';
 import SiteFooter from '../Components/SiteFooter';
 import Icon from '../Components/Icon';
 import HeroCarousel from '../Components/HeroCarousel';
 import AboutSection from '../Components/AboutSection';
 import DirectorsSection from '../Components/DirectorsSection';
 import ServiceDirectory from '../Components/ServiceDirectory';
-import { whatsappContact } from '../contact';
+import { getContextWhatsAppUrl } from '../contact';
 import type { Service } from '../types';
 
 const faqs = [
@@ -24,6 +25,7 @@ const steps = [
 ];
 
 export default function Home({ services, selectedService = '' }: { services: Service[]; selectedService?: string }) {
+    const { url } = usePage();
     const root = useRef<HTMLDivElement>(null);
     const consultationUrl = selectedService ? `/kontak?layanan=${encodeURIComponent(selectedService)}#konsultasi` : '/kontak#konsultasi';
     useEffect(() => {
@@ -39,7 +41,7 @@ export default function Home({ services, selectedService = '' }: { services: Ser
     }, []);
 
     return <div ref={root}>
-        <Head title="Konsultan Keuangan & Pajak Terpercaya"><meta name="description" head-key="description" content="Konsulin membantu kebutuhan pajak, akuntansi, dan administrasi usaha Anda. Temukan layanan yang sesuai dan mulai diskusikan kebutuhan bisnis Anda." /><meta property="og:title" content="Konsulin — Konsultan Keuangan & Pajak Terpercaya" /><meta property="og:description" content="Partner untuk kebutuhan pajak, akuntansi, dan administrasi usaha Anda." /></Head>
+        <SeoHead />
         <SiteHeader />
         <main id="main">
             <section className="hero container" aria-labelledby="hero-heading">
@@ -50,10 +52,10 @@ export default function Home({ services, selectedService = '' }: { services: Ser
                 </div>
                 <HeroCarousel />
             </section>
-            <AboutSection showLink />
+            <AboutSection showLink showCommitments={false} />
             <div className="home-management"><DirectorsSection /></div>
             <section id="layanan" className="services-section section-pad" aria-labelledby="services-heading">
-                <div className="container"><div className="section-heading" data-reveal><h2 id="services-heading">Pilih Layanan Pajak dan Akuntansi yang Anda Butuhkan.</h2></div><div data-reveal><ServiceDirectory services={services} directWhatsApp /></div></div>
+                <div className="container"><div className="section-heading" data-reveal><h2 id="services-heading">Pilih Layanan Pajak dan Akuntansi yang Anda Butuhkan.</h2></div><div data-reveal><ServiceDirectory services={services} directWhatsApp /><Link className="text-link service-catalog-link" href="/layanan">Lihat detail seluruh layanan pajak dan akuntansi <Icon name="arrow" /></Link></div></div>
             </section>
 
             <section id="cara-kerja" className="process-section section-pad" aria-labelledby="process-heading"><div className="container"><div className="process-heading" data-reveal><h2 id="process-heading">Langkah kecil.<br />Arah yang lebih jelas.</h2><p>Tidak perlu memahami semuanya sekaligus.<br />Kita mulai dari percakapan.</p></div><ol className="process-list" data-reveal>{steps.map(([name, description], index) => <li key={name}><span className="step-number">0{index + 1}</span><h3>{name}</h3><p>{description}</p></li>)}</ol></div></section>
@@ -62,7 +64,7 @@ export default function Home({ services, selectedService = '' }: { services: Ser
 
             <section id="konsultasi" className="consultation-section section-pad" aria-labelledby="consultation-heading"><div className="container home-contact-callout" data-reveal>
                 <div><h2 id="consultation-heading">Ada yang ingin Anda bereskan?</h2><p>Ceritakan kebutuhan keuangan dan pajak Anda. Kita mulai dari percakapan.</p></div>
-                <div className="home-contact-actions"><a className="button button-primary" href={whatsappContact.url} target="_blank" rel="noopener noreferrer">Hubungi WhatsApp</a><Link className="text-link" href={consultationUrl}>Halaman Kontak</Link></div>
+                <div className="home-contact-actions"><a className="button button-primary" href={getContextWhatsAppUrl(url, 'CTA')} target="_blank" rel="noopener noreferrer">Hubungi WhatsApp</a><Link className="text-link" href={consultationUrl}>Halaman Kontak</Link></div>
             </div></section>
         </main>
         <SiteFooter />

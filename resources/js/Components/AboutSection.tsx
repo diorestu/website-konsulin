@@ -12,7 +12,7 @@ const commitments = [
     'Kehati-hatian dalam menangani informasi klien',
 ];
 
-export default function AboutSection({ showLink = false }: { showLink?: boolean }) {
+export default function AboutSection({ showLink = false, showCommitments = true }: { showLink?: boolean; showCommitments?: boolean }) {
     return <section id="tentang" className="company-section section-pad" aria-labelledby="company-heading">
         <div className="container">
             <div className="company-heading" data-reveal><h2 id="company-heading">Kami Mampu Memberikan Pelayanan Pajak dan Akuntansi Terbaik untuk Anda.</h2></div>
@@ -20,11 +20,11 @@ export default function AboutSection({ showLink = false }: { showLink?: boolean 
                 <figure className="company-image"><img src="/images/gallery/konsulin-4.jpg" alt="Diskusi tim Konsulin bersama klien di ruang pertemuan" width="1600" height="1315" loading="lazy" /></figure>
                 <div className="company-story">
                     <p><strong>Konsulin.id — Adi Putra &amp; Partners</strong> adalah Kantor Jasa Akuntan &amp; Konsultan Hukum Perpajakan yang mendampingi kebutuhan akuntansi, perpajakan, dan pengelolaan usaha Anda.</p>
-                    <p>Bidang layanan kami meliputi <strong>Accounting, Tax Consulting, Internal Audit, dan Business Advisory.</strong> Dari laporan keuangan dan pajak rutin hingga kebutuhan pendampingan khusus, pembahasan dimulai dengan memahami kondisi serta prioritas klien.</p>
+                    <p>Bidang layanan kami meliputi <strong><Link href="/layanan/akuntansi">Accounting</Link>, <Link href="/layanan/perpajakan">Tax Consulting</Link>, Internal Audit, dan <Link href="/layanan/konsultasi">Business Advisory</Link>.</strong> Dari laporan keuangan dan pajak rutin hingga kebutuhan pendampingan khusus, pembahasan dimulai dengan memahami kondisi serta prioritas klien.</p>
                     <p>Melalui komunikasi yang jelas dan langkah kerja yang disepakati bersama, Konsulin.id membantu Anda memetakan kebutuhan, menyiapkan informasi, dan menentukan ruang lingkup layanan yang sesuai dengan tahap usaha.</p>
                 </div>
             </div>
-            <ul className="company-commitments" data-reveal>{commitments.map(commitment => <li key={commitment}><Icon name="check" /><span>{commitment}</span></li>)}</ul>
+            {showCommitments && <ul className="company-commitments" data-reveal>{commitments.map(commitment => <li key={commitment}><Icon name="check" /><span>{commitment}</span></li>)}</ul>}
             {showLink && <Link className="text-link" href="/tentang-kami">Selengkapnya tentang kami <Icon name="arrow" /></Link>}
         </div>
     </section>;

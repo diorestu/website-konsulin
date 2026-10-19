@@ -1,13 +1,42 @@
 const whatsappNumber = '6285183440300';
 
-export const getWhatsAppUrl = (message?: string) => {
-    const text = message ?? 'Halo Konsulin, saya ingin berkonsultasi mengenai layanan keuangan dan pajak.';
-    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+export const serviceWhatsAppCodes: Record<string, string> = {
+    'laporan-bulanan': 'LK',
+    perpajakan: 'SPTM',
+    'spt-tahunan': 'SPTT',
+    'banding-gugatan': 'BG',
+    akuntansi: 'LKF',
+    'laporan-kap': 'KAP',
+    'tax-opinion-investor-asing': 'TO',
+    tpdoc: 'TPD',
+    'restitusi-pajak': 'RP',
+    konsultasi: 'BA',
+    'pengukuhan-pkp': 'PKP',
+    'coretax-pribadi': 'CTP',
+    'coretax-badan': 'CTB',
 };
 
-export const getServiceWhatsAppUrl = (serviceName: string) => {
-    return getWhatsAppUrl(`Halo Konsulin, saya ingin berkonsultasi mengenai layanan ${serviceName}.`);
+export const getWhatsAppPageCode = (pageUrl: string) => {
+    const url = new URL(pageUrl, 'https://konsulin.id');
+    const path = url.pathname.replace(/\/$/, '') || '/';
+    if (path.startsWith('/layanan/')) return `DL-${serviceWhatsAppCodes[path.split('/')[2]] ?? 'LYN'}`;
+    const pages: Record<string, string> = { '/': 'LP', '/tentang-kami': 'TK', '/our-value': 'NK', '/layanan': 'LY', '/blog': 'BL', '/kontak': 'KT', '/privasi': 'PR' };
+    const code = pages[path] ?? 'WEB';
+    const selectedId = url.searchParams.get('layanan') ?? '';
+    const selectedService = Object.hasOwn(serviceWhatsAppCodes, selectedId) ? serviceWhatsAppCodes[selectedId] : undefined;
+    return path === '/kontak' && selectedService ? `${code}-${selectedService}` : code;
 };
+
+export const getWhatsAppUrl = (message?: string, reference = 'WEB') => {
+    const text = message ?? 'Halo Konsulin, saya ingin berkonsultasi mengenai layanan keuangan dan pajak.';
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`${text} [${reference}]`)}`;
+};
+
+export const getServiceWhatsAppUrl = (service: { id: string; name: string }, pageUrl: string) => {
+    return getWhatsAppUrl(`Hi Konsulin, saya ingin konsultasi tentang layanan ${service.name}.`, `${getWhatsAppPageCode(pageUrl)}-${serviceWhatsAppCodes[service.id] ?? 'LYN'}`);
+};
+
+export const getContextWhatsAppUrl = (pageUrl: string, placement: 'CTA' | 'FT' | 'FS' | 'FL' | 'NO' | 'SOC') => getWhatsAppUrl(undefined, `${getWhatsAppPageCode(pageUrl)}-${placement}`);
 
 export const whatsappContact = {
     displayNumber: '+62 851 8344 0300',

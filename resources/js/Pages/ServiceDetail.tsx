@@ -1,6 +1,8 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import SiteHeader from '../Components/SiteHeader';
+import SeoHead from '../Components/SeoHead';
+import RelatedPages from '../Components/RelatedPages';
 import SiteFooter from '../Components/SiteFooter';
 import Icon from '../Components/Icon';
 import Breadcrumbs from '../Components/Breadcrumbs';
@@ -15,11 +17,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
     }, [service.id]);
 
     return <>
-        <Head title={service.name}>
-            <meta name="description" head-key="description" content={service.summary} />
-            <meta property="og:title" content={`${service.name} — Konsulin`} />
-            <meta property="og:description" content={service.summary} />
-        </Head>
+        <SeoHead />
         <SiteHeader />
         <main id="main" ref={main} tabIndex={-1} className="service-detail-page">
             <div className="service-detail-intro">
@@ -54,10 +52,11 @@ export default function ServiceDetail({ service }: { service: Service }) {
                         <h2 id="detail-next-step">Mulai dari<br />kebutuhan Anda.</h2>
                         <p>Ceritakan situasi Anda melalui formulir. Layanan ini akan terpilih otomatis.</p>
                         <Link className="button button-primary" href={consultationUrl}>Mulai konsultasi</Link>
-                        <Link className="text-link" href="/#layanan">Lihat semua layanan</Link>
+                        <Link className="text-link" href="/layanan">Lihat semua layanan</Link>
                     </div>
                 </aside>
             </div>
+            <RelatedPages />
         </main>
         <SiteFooter />
     </>;
