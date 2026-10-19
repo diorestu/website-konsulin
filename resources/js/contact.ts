@@ -16,14 +16,16 @@ export const serviceWhatsAppCodes: Record<string, string> = {
     'coretax-badan': 'CTB',
 };
 
+const getServiceCode = (id: string) => Object.hasOwn(serviceWhatsAppCodes, id) ? serviceWhatsAppCodes[id] : undefined;
+
 export const getWhatsAppPageCode = (pageUrl: string) => {
     const url = new URL(pageUrl, 'https://konsulin.id');
     const path = url.pathname.replace(/\/$/, '') || '/';
-    if (path.startsWith('/layanan/')) return `DL-${serviceWhatsAppCodes[path.split('/')[2]] ?? 'LYN'}`;
+    if (path.startsWith('/layanan/')) return `DL-${getServiceCode(path.split('/')[2]) ?? 'LYN'}`;
     const pages: Record<string, string> = { '/': 'LP', '/tentang-kami': 'TK', '/our-value': 'NK', '/layanan': 'LY', '/blog': 'BL', '/kontak': 'KT', '/privasi': 'PR' };
     const code = pages[path] ?? 'WEB';
     const selectedId = url.searchParams.get('layanan') ?? '';
-    const selectedService = Object.hasOwn(serviceWhatsAppCodes, selectedId) ? serviceWhatsAppCodes[selectedId] : undefined;
+    const selectedService = getServiceCode(selectedId);
     return path === '/kontak' && selectedService ? `${code}-${selectedService}` : code;
 };
 
@@ -33,7 +35,7 @@ export const getWhatsAppUrl = (message?: string, reference = 'WEB') => {
 };
 
 export const getServiceWhatsAppUrl = (service: { id: string; name: string }, pageUrl: string) => {
-    return getWhatsAppUrl(`Hi Konsulin, saya ingin konsultasi tentang layanan ${service.name}.`, `${getWhatsAppPageCode(pageUrl)}-${serviceWhatsAppCodes[service.id] ?? 'LYN'}`);
+    return getWhatsAppUrl(`Hi Konsulin, saya ingin konsultasi tentang layanan ${service.name}.`, `${getWhatsAppPageCode(pageUrl)}-${getServiceCode(service.id) ?? 'LYN'}`);
 };
 
 export const getContextWhatsAppUrl = (pageUrl: string, placement: 'CTA' | 'FT' | 'FS' | 'FL' | 'NO' | 'SOC') => getWhatsAppUrl(undefined, `${getWhatsAppPageCode(pageUrl)}-${placement}`);
