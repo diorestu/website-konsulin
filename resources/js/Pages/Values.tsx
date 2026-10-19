@@ -18,8 +18,8 @@ const companyValues = [
 ];
 
 export default function Values() {
-    return <PageShell title="Our Value" description="Pelayanan Terbaik, Kolaborasi, Hadirkan Solusi, dan Integritas menjadi nilai dalam pelayanan Konsulin."
-        pageHeader={<PageBanner title="Our Value" />}>
+    return <PageShell title="Nilai Kami" description="Pelayanan Terbaik, Kolaborasi, Hadirkan Solusi, dan Integritas menjadi nilai dalam pelayanan Konsulin."
+        pageHeader={<PageBanner title="Nilai Kami" />}>
         <section className="container values-company-intro" aria-labelledby="company-values-heading">
             <h2 id="company-values-heading">Nilai Perusahaan</h2>
             <p>Konsulin merupakan jasa akuntan dan konsultan yang profesional, berintegritas, berkualitas, dan berkompetensi dalam rangka mendorong terwujudnya good governance di Indonesia</p>

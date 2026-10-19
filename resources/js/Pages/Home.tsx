@@ -45,8 +45,8 @@ export default function Home({ services, selectedService = '' }: { services: Ser
             <section className="hero container" aria-labelledby="hero-heading">
                 <div className="hero-copy">
                     <h1 id="hero-heading">Konsultan Keuangan &amp; Pajak <span>Terpercaya</span></h1>
-                    <p className="hero-description">Lebih tenang mengelola pajak dan keuangan.<br className="desktop-break" /> Lebih banyak ruang untuk mengembangkan usaha.</p>
-                    <div className="hero-actions"><Link className="button button-primary" href={consultationUrl}>Mari bicarakan bisnis Anda <Icon name="diagonal" /></Link><a className="hero-secondary" href="#layanan">Jelajahi layanan <Icon name="down" /></a></div>
+                    <p className="hero-description">Kami membantu Anda mengelola pajak dan keuangan agar lebih tenang menjalankan dan mengembangkan usaha.</p>
+                    <div className="hero-actions"><Link className="button button-primary" href={consultationUrl}>Hubungi Kami <Icon name="diagonal" /></Link><a className="hero-secondary" href="#layanan">Jelajahi layanan <Icon name="down" /></a></div>
                 </div>
                 <HeroCarousel />
             </section>

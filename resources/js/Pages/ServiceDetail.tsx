@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import SiteHeader from '../Components/SiteHeader';
 import SiteFooter from '../Components/SiteFooter';
 import Icon from '../Components/Icon';
+import Breadcrumbs from '../Components/Breadcrumbs';
 import type { Service } from '../types';
 
 export default function ServiceDetail({ service }: { service: Service }) {
@@ -23,10 +24,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
         <main id="main" ref={main} tabIndex={-1} className="service-detail-page">
             <div className="service-detail-intro">
                 <div className="container">
-                    <nav className="service-breadcrumb" aria-label="Breadcrumb">
-                        <Link href="/">Beranda</Link><span aria-hidden="true">/</span>
-                        <Link href="/#layanan">Layanan</Link>
-                    </nav>
+                    <Breadcrumbs title={service.name} parent={{ title: 'Layanan Kami', href: '/layanan' }} />
                     <p className="section-caption">Layanan Konsulin</p>
                     <h1>{service.name}</h1>
                     <p className="service-detail-summary">{service.summary}</p>

@@ -3,9 +3,9 @@ import { useReducedMotion } from 'motion/react';
 import Icon from './Icon';
 
 const slides = [
-    { src: '/images/architecture.jpg', alt: 'Perspektif ke atas di antara gedung perkantoran modern dengan langit terbuka' },
-    { src: '/images/workspace.jpg', alt: 'Ruang kerja terbuka yang terang dengan meja bersama dan tanaman' },
-    { src: '/images/business-desk.jpg', alt: 'Ilustrasi laptop yang menampilkan grafik dan ringkasan data di atas meja kerja' },
+    { src: '/images/gallery/konsulin-3.jpg', alt: 'Dokumentasi kebersamaan Konsulin dan klien', height: 1300 },
+    { src: '/images/gallery/konsulin-1.jpg', alt: 'Tim Konsulin bersama klien di ruang pertemuan', height: 1326 },
+    { src: '/images/gallery/konsulin-5.jpg', alt: 'Pertemuan Konsulin bersama klien di Tabanan, Bali', height: 1320 },
 ];
 
 export default function HeroCarousel() {
@@ -39,7 +39,7 @@ export default function HeroCarousel() {
         <div className="hero-image hero-carousel" role="region" aria-roledescription="carousel" aria-label="Sorotan Konsulin"
             onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
             onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}>
-            {slides.map((slide, index) => <img key={slide.src} className={`carousel-image ${current === index ? 'is-current' : ''}`} src={slide.src} alt={slide.alt} width="1400" height="933" aria-hidden={current !== index} fetchPriority={index === 0 ? 'high' : 'auto'} />)}
+            {slides.map((slide, index) => <img key={slide.src} className={`carousel-image ${current === index ? 'is-current' : ''}`} src={slide.src} alt={slide.alt} width="1600" height={slide.height} aria-hidden={current !== index} fetchPriority={index === 0 ? 'high' : 'auto'} />)}
             <div className="carousel-controls">
                 <button type="button" aria-label="Gambar sebelumnya" onClick={() => move(-1)}><Icon name="arrow" className="carousel-previous" /></button>
                 <span className="carousel-count" aria-live={playing ? 'off' : 'polite'} aria-atomic="true">{current + 1} / {slides.length}</span>

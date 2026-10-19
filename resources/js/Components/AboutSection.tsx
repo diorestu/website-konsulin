@@ -15,9 +15,9 @@ const commitments = [
 export default function AboutSection({ showLink = false }: { showLink?: boolean }) {
     return <section id="tentang" className="company-section section-pad" aria-labelledby="company-heading">
         <div className="container">
-            <div className="company-heading" data-reveal><p className="section-caption">TENTANG KAMI</p><h2 id="company-heading">Kami Mampu Memberikan Pelayanan Pajak dan Akuntansi Terbaik untuk Anda.</h2></div>
+            <div className="company-heading" data-reveal><h2 id="company-heading">Kami Mampu Memberikan Pelayanan Pajak dan Akuntansi Terbaik untuk Anda.</h2></div>
             <div className="company-overview" data-reveal>
-                <figure className="company-image"><img src="/images/workspace.jpg" alt="Ilustrasi ruang kerja terbuka yang terang dengan meja bersama dan tanaman" width="1200" height="800" loading="lazy" /></figure>
+                <figure className="company-image"><img src="/images/gallery/konsulin-4.jpg" alt="Diskusi tim Konsulin bersama klien di ruang pertemuan" width="1600" height="1315" loading="lazy" /></figure>
                 <div className="company-story">
                     <p><strong>Konsulin.id — Adi Putra &amp; Partners</strong> adalah Kantor Jasa Akuntan &amp; Konsultan Hukum Perpajakan yang mendampingi kebutuhan akuntansi, perpajakan, dan pengelolaan usaha Anda.</p>
                     <p>Bidang layanan kami meliputi <strong>Accounting, Tax Consulting, Internal Audit, dan Business Advisory.</strong> Dari laporan keuangan dan pajak rutin hingga kebutuhan pendampingan khusus, pembahasan dimulai dengan memahami kondisi serta prioritas klien.</p>
