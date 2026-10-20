@@ -42,3 +42,24 @@ test('generic link has a reference and custom text survives encoding', () => {
     assert.ok(message(getWhatsAppUrl()).endsWith('[WEB]'));
     assert.equal(message(getWhatsAppUrl('Halo! Pajak & akuntansi — pribadi/badan.', 'KT-NO')), 'Halo! Pajak & akuntansi — pribadi/badan. [KT-NO]');
 });
+
+test('Admin 2 footer link uses the previous number and a distinct source marker', () => {
+    const primary = new URL(getContextWhatsAppUrl('/', 'FT'));
+    const admin2 = new URL(getContextWhatsAppUrl('/', 'FT', 'admin2'));
+    assert.equal(primary.pathname, '/6285183440300');
+    assert.equal(admin2.pathname, '/6281908797799');
+    assert.ok(primary.searchParams.get('text').endsWith('[LP-FT]'));
+    assert.ok(admin2.searchParams.get('text').endsWith('[LP-FT-A2]'));
+    assert.ok(message(getContextWhatsAppUrl('/tentang-kami', 'FT', 'admin2')).endsWith('[TK-FT-A2]'));
+});
+
+test('detail-page consultation includes the service name and a single DL service marker', () => {
+    for (const id of Object.keys(serviceWhatsAppCodes)) {
+        const service = { id, name: `Layanan ${id}` };
+        const url = new URL(getServiceWhatsAppUrl(service, `/layanan/${id}?utm_source=google`));
+        assert.equal(url.pathname, '/6285183440300');
+        assert.ok(url.searchParams.get('text').includes(service.name));
+        assert.ok(url.searchParams.get('text').endsWith(`[DL-${serviceWhatsAppCodes[id]}]`));
+    }
+    assert.ok(message(getServiceWhatsAppUrl({ id: 'laporan-bulanan', name: 'Laporan Keuangan' }, '/layanan')).endsWith('[LY-LK]'));
+});

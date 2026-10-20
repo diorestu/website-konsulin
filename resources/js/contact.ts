@@ -1,4 +1,5 @@
-const whatsappNumber = '6285183440300';
+const whatsappNumbers = { primary: '6285183440300', admin2: '6281908797799' };
+type WhatsAppRecipient = keyof typeof whatsappNumbers;
 
 export const serviceWhatsAppCodes: Record<string, string> = {
     'laporan-bulanan': 'LK',
@@ -29,20 +30,27 @@ export const getWhatsAppPageCode = (pageUrl: string) => {
     return path === '/kontak' && selectedService ? `${code}-${selectedService}` : code;
 };
 
-export const getWhatsAppUrl = (message?: string, reference = 'WEB') => {
+export const getWhatsAppUrl = (message?: string, reference = 'WEB', recipient: WhatsAppRecipient = 'primary') => {
     const text = message ?? 'Halo Konsulin, saya ingin berkonsultasi mengenai layanan keuangan dan pajak.';
-    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`${text} [${reference}]`)}`;
+    return `https://wa.me/${whatsappNumbers[recipient]}?text=${encodeURIComponent(`${text} [${reference}]`)}`;
 };
 
 export const getServiceWhatsAppUrl = (service: { id: string; name: string }, pageUrl: string) => {
-    return getWhatsAppUrl(`Hi Konsulin, saya ingin konsultasi tentang layanan ${service.name}.`, `${getWhatsAppPageCode(pageUrl)}-${getServiceCode(service.id) ?? 'LYN'}`);
+    const pageCode = getWhatsAppPageCode(pageUrl);
+    const serviceCode = getServiceCode(service.id) ?? 'LYN';
+    const reference = pageCode === `DL-${serviceCode}` ? pageCode : `${pageCode}-${serviceCode}`;
+    return getWhatsAppUrl(`Hi Konsulin, saya ingin konsultasi tentang layanan ${service.name}.`, reference);
 };
 
-export const getContextWhatsAppUrl = (pageUrl: string, placement: 'CTA' | 'FT' | 'FS' | 'FL' | 'NO' | 'SOC') => getWhatsAppUrl(undefined, `${getWhatsAppPageCode(pageUrl)}-${placement}`);
+export const getContextWhatsAppUrl = (pageUrl: string, placement: 'CTA' | 'FT' | 'FS' | 'FL' | 'NO' | 'SOC', recipient: WhatsAppRecipient = 'primary') => getWhatsAppUrl(undefined, `${getWhatsAppPageCode(pageUrl)}-${placement}${recipient === 'admin2' ? '-A2' : ''}`, recipient);
 
 export const whatsappContact = {
     displayNumber: '+62 851 8344 0300',
     url: getWhatsAppUrl(),
+};
+
+export const whatsappAdmin2Contact = {
+    displayNumber: '+62 819 0879 7799',
 };
 
 export const officialEmail = 'info@konsulin.id';

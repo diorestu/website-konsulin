@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import SiteHeader from '../Components/SiteHeader';
 import SeoHead from '../Components/SeoHead';
@@ -7,10 +7,12 @@ import SiteFooter from '../Components/SiteFooter';
 import Icon from '../Components/Icon';
 import Breadcrumbs from '../Components/Breadcrumbs';
 import type { Service } from '../types';
+import { getServiceWhatsAppUrl } from '../contact';
 
 export default function ServiceDetail({ service }: { service: Service }) {
     const main = useRef<HTMLElement>(null);
-    const consultationUrl = `/kontak?layanan=${encodeURIComponent(service.id)}#konsultasi`;
+    const { url } = usePage();
+    const consultationUrl = getServiceWhatsAppUrl(service, url);
 
     useEffect(() => {
         main.current?.focus({ preventScroll: true });
@@ -26,7 +28,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     <p className="section-caption">Layanan Konsulin</p>
                     <h1>{service.name}</h1>
                     <p className="service-detail-summary">{service.summary}</p>
-                    <Link className="button button-primary" href={consultationUrl}>Konsultasikan layanan <Icon name="arrow" /></Link>
+                    <a className="button button-primary" href={consultationUrl} target="_blank" rel="noopener noreferrer" aria-label="Konsultasikan layanan melalui WhatsApp (tab baru)">Konsultasikan layanan <Icon name="arrow" /></a>
                 </div>
             </div>
             <div className="container service-detail-body">
@@ -50,8 +52,8 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     <div className="service-consultation-card">
                         <p className="section-caption">Langkah berikutnya</p>
                         <h2 id="detail-next-step">Mulai dari<br />kebutuhan Anda.</h2>
-                        <p>Ceritakan situasi Anda melalui formulir. Layanan ini akan terpilih otomatis.</p>
-                        <Link className="button button-primary" href={consultationUrl}>Mulai konsultasi</Link>
+                        <p>Ceritakan kebutuhan Anda melalui WhatsApp. Nama layanan akan terisi dalam pesan.</p>
+                        <a className="button button-primary" href={consultationUrl} target="_blank" rel="noopener noreferrer" aria-label="Mulai konsultasi melalui WhatsApp (tab baru)">Mulai konsultasi</a>
                         <Link className="text-link" href="/layanan">Lihat semua layanan</Link>
                     </div>
                 </aside>

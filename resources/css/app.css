@@ -139,6 +139,7 @@ h1 span { color: var(--color-accent); }
 .footer-nav a { font-size: var(--text-sm); min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
 .footer-company h2, .footer-contact h2 { font-size: var(--text-lg); line-height: 1.5; letter-spacing: -0.025em; margin-top: var(--space-lg); }
 .footer-company p, .footer-contact p { font-size: var(--text-base); line-height: 1.85; }
+.footer-company p { font-size: 13px; }
 .footer-contact h2 { margin-top: 0; margin-bottom: var(--space-md); }
 .footer-contact { display: flex; flex-direction: column; align-items: flex-start; }
 .footer-contact > a { display: inline-flex; min-height: 44px; align-items: center; font-size: var(--text-base); text-decoration: none; }
@@ -392,7 +393,7 @@ h1 span { color: var(--color-accent); }
 .site-footer .office-locations > h2 { font-size: var(--text-lg); line-height: 1.4; margin-bottom: var(--space-12); }
 .site-footer .office-grid { gap: var(--space-md); }
 .site-footer .office-grid h3 { font-size: var(--text-base); line-height: 1.5; margin-bottom: var(--space-xs); }
-.site-footer .office-grid p { line-height: 1.5; }
+.site-footer .office-grid p { font-size: 12px; line-height: 1.5; }
 .site-footer .office-grid p { color: var(--color-footer-muted); }
 .contact-direct-links { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-lg); }
 .contact-direct-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-base); text-decoration: none; }

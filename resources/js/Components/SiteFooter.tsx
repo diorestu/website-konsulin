@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { navigation } from '../navigation';
 import FloatingConsultation from './FloatingConsultation';
-import { getContextWhatsAppUrl, officialEmail, whatsappContact } from '../contact';
+import { getContextWhatsAppUrl, officialEmail, whatsappAdmin2Contact, whatsappContact } from '../contact';
 import SocialLinks from './SocialLinks';
 import OfficeLocations from './OfficeLocations';
 
@@ -22,7 +22,8 @@ export default function SiteFooter() {
                 </nav>
                 <div className="footer-contact">
                     <h2>Kontak</h2>
-                    <a href={getContextWhatsAppUrl(url, 'FT')} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp Konsulin: ${whatsappContact.displayNumber}`}>{whatsappContact.displayNumber}</a>
+                    <a href={getContextWhatsAppUrl(url, 'FT')} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp Admin 1 Konsulin: ${whatsappContact.displayNumber}`}>Admin 1: {whatsappContact.displayNumber}</a>
+                    <a href={getContextWhatsAppUrl(url, 'FT', 'admin2')} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp Admin 2 Konsulin: ${whatsappAdmin2Contact.displayNumber}`}>Admin 2: {whatsappAdmin2Contact.displayNumber}</a>
                     <a href={`mailto:${officialEmail}`}>{officialEmail}</a>
                     <h2 className="footer-social-heading">Sosial</h2>
                     <SocialLinks source="FS" />
