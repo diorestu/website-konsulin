@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-type Props = { name: 'arrow' | 'diagonal' | 'check' | 'plus' | 'close' | 'menu' | 'document' | 'down' | 'pause' | 'play' | 'chat'; className?: string; style?: CSSProperties };
+type Props = { name: 'arrow' | 'diagonal' | 'check' | 'plus' | 'close' | 'menu' | 'document' | 'down' | 'pause' | 'play' | 'chat' | 'map-marker' | 'user' | 'building'; className?: string; style?: CSSProperties };
 
 export default function Icon({ name, ...props }: Props) {
     const paths = {
@@ -14,6 +14,9 @@ export default function Icon({ name, ...props }: Props) {
         down: <path d="m6 9 6 6 6-6" />,
         pause: <path d="M9 5v14M15 5v14" />,
         play: <path d="m8 5 11 7-11 7z" />,
+        'map-marker': <><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></>,
+        user: <><circle cx="12" cy="7" r="4" /><path d="M4 21v-2a8 8 0 0 1 16 0v2" /></>,
+        building: <><path d="M5 21V3h14v18M3 21h18M10 21v-4h4v4M9 7h1M14 7h1M9 11h1M14 11h1" /></>,
         chat: <><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a9 9 0 0 1-.9-4A8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z" /><path d="M8 9h8M8 13h5" /></>,
     };
     return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>{paths[name]}</svg>;

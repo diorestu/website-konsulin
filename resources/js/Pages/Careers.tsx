@@ -65,12 +65,16 @@ export default function Careers({ careers, pagination, careersUnavailable }: Pro
                         <p className="career-count">{pagination.total} lowongan tersedia</p>
                         <div className="career-cards">{careers.map(career => {
                             const deadline = closingDate(career.closing_date);
-                            const metadata = [career.location, employmentLabels[career.employment_type] ?? career.employment_type, workplaceLabels[career.workplace_type] ?? career.workplace_type].filter(Boolean);
+                            const metadata = [
+                                { label: 'Lokasi', icon: 'map-marker' as const, value: career.location },
+                                { label: 'Status', icon: 'user' as const, value: employmentLabels[career.employment_type] ?? career.employment_type },
+                                { label: 'Tipe', icon: 'building' as const, value: workplaceLabels[career.workplace_type] ?? career.workplace_type },
+                            ].filter(item => item.value);
                             return <article className="career-item" key={career.id} aria-labelledby={`career-${career.id}`}>
                                 <h3 id={`career-${career.id}`}>{career.title}</h3>
-                                {metadata.length > 0 && <ul className="career-meta" aria-label="Informasi posisi">{metadata.map((value, index) => <li key={index}>{value}</li>)}</ul>}
-                                {career.description && <p className="career-description">{career.description}</p>}
-                                {(career.requirements || career.benefits) && <details className="career-details"><summary>Kualifikasi dan informasi posisi</summary>
+                                {metadata.length > 0 && <ul className="career-meta" aria-label="Informasi posisi">{metadata.map(item => <li key={item.label} aria-label={`${item.label}: ${item.value}`}><Icon name={item.icon} /><span>{item.value}</span></li>)}</ul>}
+                                {(career.description || career.requirements || career.benefits) && <details className="career-details"><summary>Kualifikasi dan informasi posisi</summary>
+                                    {career.description && <div><h4>Deskripsi pekerjaan</h4><p className="career-description">{career.description}</p></div>}
                                     {career.requirements && <div><h4>Kualifikasi</h4><p>{career.requirements}</p></div>}
                                     {career.benefits && <div><h4>Benefit</h4><p>{career.benefits}</p></div>}
                                 </details>}

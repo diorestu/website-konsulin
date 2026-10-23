@@ -1,0 +1,181 @@
+- generic [ref=e2]:
+  - link "Langsung ke konten" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Konsulin.id, beranda" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Konsulin.id — Adi Putra & Partners" [ref=e7]
+      - navigation "Navigasi utama" [ref=e8]:
+        - link "Beranda" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "Layanan Kami" [ref=e10] [cursor=pointer]:
+          - /url: /layanan
+        - link "Tentang Kami" [ref=e11] [cursor=pointer]:
+          - /url: /tentang-kami
+        - link "Nilai Kami" [ref=e12] [cursor=pointer]:
+          - /url: /our-value
+        - link "Blog" [ref=e13] [cursor=pointer]:
+          - /url: /blog
+        - link "Karir" [ref=e14] [cursor=pointer]:
+          - /url: /karir
+        - link "Kontak" [ref=e15] [cursor=pointer]:
+          - /url: /kontak
+  - main [active] [ref=e16]:
+    - generic [ref=e18]:
+      - navigation "Breadcrumb" [ref=e19]:
+        - list [ref=e20]:
+          - listitem [ref=e21]:
+            - link "Beranda" [ref=e22] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e23]:
+            - generic [aria-hidden] [ref=e24]: /
+            - generic [ref=e25]: Karir
+      - paragraph [ref=e26]: Karir Konsulin
+      - heading "Temukan peluang karir Anda." [level=1] [ref=e27]: Temukan peluangkarir Anda.
+      - paragraph [ref=e28]: Lihat posisi yang tersedia dan temukan kesempatan untuk bergabung bersama tim Konsulin.
+      - link "Lihat lowongan" [ref=e29] [cursor=pointer]:
+        - /url: "#lowongan"
+    - region [ref=e33]:
+      - heading "Lowongan yang tersedia" [level=2] [ref=e34]
+      - paragraph [ref=e35]: 3 lowongan tersedia
+      - generic [ref=e36]:
+        - article [ref=e37]:
+          - heading "Recruiter" [level=3] [ref=e38]
+          - list "Informasi posisi" [ref=e39]:
+            - 'listitem "Lokasi: Tangerang" [ref=e40]':
+              - generic [ref=e44]: Tangerang
+            - 'listitem "Status: Tetap" [ref=e45]':
+              - generic [ref=e49]: Tetap
+            - 'listitem "Tipe: Di kantor" [ref=e50]':
+              - generic [ref=e53]: Di kantor
+          - group [ref=e54]:
+            - generic "Kualifikasi dan informasi posisi" [ref=e55] [cursor=pointer]
+          - generic [ref=e56]:
+            - paragraph [ref=e57]:
+              - text: Batas lamaran
+              - time [ref=e58]: 13 November 2026
+            - link "Lamar Recruiter (tab baru)" [ref=e59] [cursor=pointer]:
+              - /url: https://humi.web.id/careers/recruiter
+              - text: Lamar posisi ini
+        - article [ref=e62]:
+          - heading "Consectetur minima dolorem nis" [level=3] [ref=e63]
+          - list "Informasi posisi" [ref=e64]:
+            - 'listitem "Lokasi: Aliquid ipsa Nam fugiat id" [ref=e65]':
+              - generic [ref=e69]: Aliquid ipsa Nam fugiat id
+            - 'listitem "Status: Kontrak" [ref=e70]':
+              - generic [ref=e74]: Kontrak
+            - 'listitem "Tipe: Di kantor" [ref=e75]':
+              - generic [ref=e78]: Di kantor
+          - group [ref=e79]:
+            - generic "Kualifikasi dan informasi posisi" [ref=e80] [cursor=pointer]
+          - generic [ref=e81]:
+            - paragraph [ref=e82]:
+              - text: Batas lamaran
+              - time [ref=e83]: 29 Oktober 2026
+            - link "Lamar Consectetur minima dolorem nis (tab baru)" [ref=e84] [cursor=pointer]:
+              - /url: https://humi.web.id/careers/consectetur-minima-dolorem-nis
+              - text: Lamar posisi ini
+        - article [ref=e87]:
+          - heading "Mollit nostrud ullamco et volu" [level=3] [ref=e88]
+          - list "Informasi posisi" [ref=e89]:
+            - 'listitem "Lokasi: Exercitation aut modi saepe po" [ref=e90]':
+              - generic [ref=e94]: Exercitation aut modi saepe po
+            - 'listitem "Status: Tetap" [ref=e95]':
+              - generic [ref=e99]: Tetap
+            - 'listitem "Tipe: Di kantor" [ref=e100]':
+              - generic [ref=e103]: Di kantor
+          - group [ref=e104]:
+            - generic "Kualifikasi dan informasi posisi" [ref=e105] [cursor=pointer]
+          - generic [ref=e106]:
+            - paragraph [ref=e107]:
+              - text: Batas lamaran
+              - time [ref=e108]: 30 Oktober 2026
+            - link "Lamar Mollit nostrud ullamco et volu (tab baru)" [ref=e109] [cursor=pointer]:
+              - /url: https://humi.web.id/careers/mollit-nostrud-ullamco-et-volu
+              - text: Lamar posisi ini
+    - region [ref=e112]:
+      - heading "Kenali Konsulin lebih lanjut" [level=2] [ref=e113]
+      - list [ref=e114]:
+        - listitem [ref=e115]:
+          - link "Tentang Kami" [ref=e116] [cursor=pointer]:
+            - /url: /tentang-kami
+        - listitem [ref=e119]:
+          - link "Nilai Kami" [ref=e120] [cursor=pointer]:
+            - /url: /our-value
+        - listitem [ref=e123]:
+          - link "Kontak & Lokasi Kantor" [ref=e124] [cursor=pointer]:
+            - /url: /kontak
+  - contentinfo [ref=e127]:
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - link "Konsulin.id, beranda" [ref=e131] [cursor=pointer]:
+            - /url: /
+            - img "Konsulin.id — Adi Putra & Partners" [ref=e132]
+          - heading "Konsulin.id — Adi Putra & Partners" [level=2] [ref=e133]
+          - paragraph [ref=e134]: Kantor Jasa Akuntan & Konsultan Hukum Perpajakan
+          - paragraph [ref=e135]: Accounting · Tax Consulting Internal Audit · Business Advisory
+        - navigation "Navigasi footer" [ref=e136]:
+          - generic [ref=e137]:
+            - link "Beranda" [ref=e138] [cursor=pointer]:
+              - /url: /
+            - link "Layanan Kami" [ref=e139] [cursor=pointer]:
+              - /url: /layanan
+            - link "Tentang Kami" [ref=e140] [cursor=pointer]:
+              - /url: /tentang-kami
+          - generic [ref=e141]:
+            - link "Nilai Kami" [ref=e142] [cursor=pointer]:
+              - /url: /our-value
+            - link "Blog" [ref=e143] [cursor=pointer]:
+              - /url: /blog
+            - link "Karir" [ref=e144] [cursor=pointer]:
+              - /url: /karir
+            - link "Kontak" [ref=e145] [cursor=pointer]:
+              - /url: /kontak
+        - generic [ref=e146]:
+          - heading "Kontak" [level=2] [ref=e147]
+          - 'link "WhatsApp Admin 1 Konsulin: +6285183440300" [ref=e148] [cursor=pointer]':
+            - /url: https://wa.me/6285183440300?text=Halo%20Konsulin%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20keuangan%20dan%20pajak.%20%5BWEB-FT%5D
+            - text: "Admin 1: +6285183440300"
+          - 'link "WhatsApp Admin 2 Konsulin: +6281908797799" [ref=e149] [cursor=pointer]':
+            - /url: https://wa.me/6281908797799?text=Halo%20Konsulin%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20keuangan%20dan%20pajak.%20%5BWEB-FT-A2%5D
+            - text: "Admin 2: +6281908797799"
+          - link "info@konsulin.id" [ref=e150] [cursor=pointer]:
+            - /url: mailto:info@konsulin.id
+          - heading "Sosial" [level=2] [ref=e151]
+          - list "Media sosial Konsulin" [ref=e152]:
+            - listitem [ref=e153]:
+              - link "WhatsApp Konsulin (tab baru)" [ref=e154] [cursor=pointer]:
+                - /url: https://wa.me/6285183440300?text=Halo%20Konsulin%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20keuangan%20dan%20pajak.%20%5BWEB-FS%5D
+            - listitem [ref=e155]:
+              - link "Instagram Konsulin (tab baru)" [ref=e156] [cursor=pointer]:
+                - /url: https://www.instagram.com/konsulinn.id/
+            - listitem [ref=e157]:
+              - link "TikTok Konsulin (tab baru)" [ref=e158] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@lifeatkonsulin
+            - listitem [ref=e159]:
+              - link "LinkedIn Konsulin (tab baru)" [ref=e160] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/konsulinid
+      - region [ref=e161]:
+        - heading "Kantor Kami" [level=2] [ref=e162]
+        - generic [ref=e163]:
+          - article [ref=e164]:
+            - heading "HQ Tangerang" [level=3] [ref=e165]
+            - paragraph [ref=e167]: Greenwich Business Park, Blok B1 Kec Pagedangan, Kabupaten Tangerang, Banten 15331
+          - article [ref=e168]:
+            - heading "Branch Bali" [level=3] [ref=e169]
+            - paragraph [ref=e171]: De' Black House, Jl. Kusuma Bangsa VII No.71 Lantai 2, Pemecutan Kaja, Kec. Denpasar Utara, Kota Denpasar, Bali 80111
+          - article [ref=e172]:
+            - heading "Branch Surabaya" [level=3] [ref=e173]
+            - paragraph [ref=e175]: Ruko Jemursari blok D12 No 203 RT03/RW08, Jlan Margorejo Indah XX Kel. Sidosermo, Kec. Wonocolo, Surabaya, Jawa Timur 60239
+      - generic [ref=e176]:
+        - generic [ref=e177]: © 2026 Konsulin.
+        - generic [ref=e178]: Partner untuk langkah bisnis Anda.
+        - link "Privasi" [ref=e179] [cursor=pointer]:
+          - /url: /privasi
+  - 'link "WhatsApp Konsulin: konsultasi sekarang (tab baru)" [ref=e180] [cursor=pointer]':
+    - /url: https://wa.me/6285183440300?text=Halo%20Konsulin%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20keuangan%20dan%20pajak.%20%5BWEB-FL%5D
+    - generic [ref=e181]:
+      - generic [ref=e182]: Butuh Bantuan?
+      - strong [ref=e183]: Konsultasi Sekarang

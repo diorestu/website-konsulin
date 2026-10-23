@@ -11,10 +11,20 @@ class ArticleController extends Controller
 {
     public function index(): Response
     {
-        $articles = Schema::hasTable('articles') ? Article::published()->select(['id', 'title', 'slug', 'excerpt', 'category', 'cover_path', 'cover_alt', 'published_at'])
-            ->latest('published_at')->orderByDesc('id')->paginate(12) : ['data' => [], 'current_page' => 1, 'last_page' => 1, 'total' => 0, 'prev_page_url' => null, 'next_page_url' => null];
+        $empty = ['data' => [], 'current_page' => 1, 'last_page' => 1, 'total' => 0, 'prev_page_url' => null, 'next_page_url' => null];
+        if (! Schema::hasTable('articles')) {
+            return Inertia::render('Blog', ['articles' => ['data' => []], 'taxArticles' => $empty, 'accountingArticles' => $empty]);
+        }
+        $query = static fn () => Article::published()->select(['id', 'title', 'slug', 'excerpt', 'category', 'cover_path', 'cover_alt', 'published_at'])
+            ->latest('published_at')->orderByDesc('id');
 
-        return Inertia::render('Blog', ['articles' => $articles]);
+        return Inertia::render('Blog', [
+            'articles' => ['data' => $query()->limit(3)->get()],
+            'taxArticles' => $query()->whereRaw('LOWER(TRIM(category)) IN (?, ?)', ['pajak', 'perpajakan'])
+                ->paginate(5, ['*'], 'pajak_page')->withQueryString(),
+            'accountingArticles' => $query()->whereRaw('LOWER(TRIM(category)) IN (?, ?)', ['accounting', 'akuntansi'])
+                ->paginate(5, ['*'], 'accounting_page')->withQueryString(),
+        ]);
     }
 
     public function show(string $slug): Response
