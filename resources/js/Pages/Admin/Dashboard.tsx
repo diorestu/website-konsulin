@@ -1,0 +1,7 @@
+import { Link } from '@inertiajs/react';
+import AdminLayout from '../../Components/Admin/AdminLayout';
+import Status from '../../Components/Admin/Status';
+type Recent = {id: number; name: string; service: string; status: string; created_at: string};
+export default function Dashboard({stats, recent}: {stats: Record<string, number>; recent: Recent[]}) {
+    return <AdminLayout title="Dashboard" description="Ringkasan konsultasi dan konten website."><div className="admin-stats">{[['new', 'Konsultasi baru'], ['in_progress', 'Sedang diproses'], ['completed', 'Selesai'], ['services', 'Layanan aktif']].map(([key, label]) => <div className="admin-stat" key={key}><span className="text-secondary small">{label}</span><strong>{stats[key]}</strong></div>)}</div><section className="card"><div className="card-header d-flex justify-content-between align-items-center"><h2 className="card-title">Konsultasi terbaru</h2><Link href="/admin/consultations" className="small">Lihat semua</Link></div>{recent.length ? <div className="table-responsive"><table className="table"><thead><tr><th>Nama</th><th>Layanan</th><th>Status</th><th>Aksi</th></tr></thead><tbody>{recent.map(item => <tr key={item.id}><td>{item.name}</td><td>{item.service}</td><td><Status value={item.status} /></td><td><Link href={`/admin/consultations/${item.id}`}>Detail</Link></td></tr>)}</tbody></table></div> : <div className="admin-empty">Belum ada permintaan konsultasi.</div>}</section></AdminLayout>;
+}

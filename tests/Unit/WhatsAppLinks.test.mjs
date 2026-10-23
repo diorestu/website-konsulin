@@ -63,3 +63,25 @@ test('detail-page consultation includes the service name and a single DL service
     }
     assert.ok(message(getServiceWhatsAppUrl({ id: 'laporan-bulanan', name: 'Laporan Keuangan' }, '/layanan')).endsWith('[LY-LK]'));
 });
+
+test('website settings update every WhatsApp placement without losing reference codes', async () => {
+    const {configureContacts, officialEmail, socialLinks, officeLocations} = await import('../../resources/js/contact.ts');
+    const originalSocials = socialLinks.map(item => ({...item}));
+    const originalOffices = officeLocations.map(item => ({...item}));
+    try {
+        configureContacts({whatsapp_primary: '6281234567890', whatsapp_secondary: '6281299999999', email: 'updated@example.test',
+            instagram: 'https://www.instagram.com/updated/', tiktok: '', linkedin: '', offices: [{name: 'Baru', address: 'Alamat baru'}]});
+        for (const placement of ['FT', 'FS', 'FL', 'CTA', 'NO', 'SOC']) {
+            assert.equal(new URL(getContextWhatsAppUrl('/', placement)).pathname, '/6281234567890');
+        }
+        assert.equal(new URL(getServiceWhatsAppUrl({id: 'perpajakan', name: 'Pajak'}, '/layanan/perpajakan')).pathname, '/6281234567890');
+        assert.equal(new URL(getContextWhatsAppUrl('/', 'FT', 'admin2')).pathname, '/6281299999999');
+        assert.equal((await import('../../resources/js/contact.ts')).officialEmail, 'updated@example.test');
+        assert.equal(socialLinks.length, 2);
+        assert.equal(officeLocations[0].address, 'Alamat baru');
+    } finally {
+        configureContacts({whatsapp_primary: '6285183440300', whatsapp_secondary: '6281908797799', email: officialEmail,
+            instagram: originalSocials.find(item => item.name === 'Instagram').href, tiktok: originalSocials.find(item => item.name === 'TikTok').href,
+            linkedin: originalSocials.find(item => item.name === 'LinkedIn').href, offices: originalOffices});
+    }
+});

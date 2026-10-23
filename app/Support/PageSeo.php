@@ -30,18 +30,19 @@ class PageSeo
         $path = $request->getPathInfo();
 
         if ($routeName === 'services.show') {
-            $service = collect(config('konsulin.services'))->firstWhere('id', $request->route('service'));
+            $service = collect(PublicContent::services())->firstWhere('id', $request->route('service'));
             if (! $service) {
                 return [];
             }
-            $metadata = config('seo.services.'.$service['id']);
+            $metadata = ['title' => $service['seo_title'], 'description' => $service['seo_description'], 'related' => $service['related_services']];
             $path = route('services.show', $service['id'], false);
-            $metadata['description'] = $metadata['title'].'. '.$service['summary'].' Hubungi Konsulin.';
             $metadata['label'] = $service['name'];
             $breadcrumbs[] = ['name' => 'Layanan Kami', 'url' => self::url('/layanan')];
             foreach ($metadata['related'] as $id) {
-                $related = collect(config('konsulin.services'))->firstWhere('id', $id);
-                $relatedLinks[] = ['title' => $related['name'], 'href' => route('services.show', $id, false)];
+                $related = collect(PublicContent::services())->firstWhere('id', $id);
+                if ($related) {
+                    $relatedLinks[] = ['title' => $related['name'], 'href' => route('services.show', $id, false)];
+                }
             }
         } elseif ($metadata) {
             $path = route($routeName, [], false);
@@ -93,7 +94,7 @@ class PageSeo
     public static function sitemapUrls(): array
     {
         $urls = array_map(fn ($name) => self::url(route($name, [], false)), array_keys(config('seo.pages')));
-        foreach (config('konsulin.services') as $service) {
+        foreach (PublicContent::services() as $service) {
             $urls[] = self::url(route('services.show', $service['id'], false));
         }
 
@@ -106,12 +107,12 @@ class PageSeo
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
             '@id' => self::url('/#organization'),
-            'name' => config('seo.organization.name'),
+            'name' => PublicContent::settings()['brand_name'],
             'url' => self::url(),
             'logo' => self::url('/images/og-konsulin.webp'),
-            'email' => config('seo.organization.email'),
-            'telephone' => config('seo.organization.telephone'),
-            'sameAs' => config('seo.organization.sameAs'),
+            'email' => PublicContent::settings()['email'],
+            'telephone' => '+'.PublicContent::settings()['whatsapp_primary'],
+            'sameAs' => array_values(array_filter(array_intersect_key(PublicContent::settings(), array_flip(['instagram', 'tiktok', 'linkedin'])))),
         ];
     }
 }

@@ -465,3 +465,40 @@ h1 span { color: var(--color-accent); }
   .company-values-section { margin-top: var(--space-3xl); padding-block: var(--space-3xl); }
   .company-values-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3xl); align-items: center; }
 }
+
+/* Career typography adapts the Carbon hierarchy to the existing Poppins brand font. */
+.careers-page .service-detail-intro h1 { font-size: clamp(2rem, 3.5vw, 2.5rem); line-height: 1.2; letter-spacing: -0.025em; }
+.careers-page .service-detail-summary { font-size: 1rem; line-height: 1.625; max-width: 60ch; }
+.careers-page .service-detail-content h2 { font-size: 1.5rem; line-height: 2rem; letter-spacing: -0.02em; margin-bottom: var(--space-sm); }
+.careers-page .service-detail-body { grid-template-columns: minmax(0, 1fr); }
+.career-list { scroll-margin-top: 112px; }
+.career-count { margin-bottom: var(--space-xl); font-size: 0.875rem; line-height: 1.5rem; }
+.career-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+.career-item, .career-state { padding: var(--space-xl); border: var(--rule-width) solid var(--color-rule); border-radius: var(--radius-md); background: var(--color-white); min-width: 0; overflow-wrap: anywhere; }
+.career-item { display: flex; flex-direction: column; align-items: stretch; }
+.career-item h3, .career-state h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.75rem; letter-spacing: -0.015em; margin-bottom: var(--space-12); }
+.career-meta { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); list-style: none; padding: 0; margin: 0 0 var(--space-xl); color: var(--color-muted); font-size: 0.875rem; line-height: 1.25rem; }
+.career-meta li + li { padding-left: 0; }
+.career-item .career-description, .career-item .career-details p, .career-state p { font-size: 1rem; line-height: 1.625; }
+.career-description, .career-details p { white-space: pre-line; }
+.career-description { margin-bottom: var(--space-lg); }
+.career-details { margin-bottom: var(--space-lg); }
+.career-details summary { cursor: pointer; padding-block: var(--space-12); font-size: 0.875rem; font-weight: 500; line-height: 1.5rem; }
+.career-details h4 { margin-block: var(--space-md) var(--space-sm); font-size: 0.875rem; line-height: 1.5rem; font-weight: 600; }
+.career-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-lg); margin-top: auto; padding-top: var(--space-lg); border-top: var(--rule-width) solid var(--color-rule); }
+.career-actions .button { margin-left: auto; font-size: 0.875rem; min-height: 48px; }
+.career-item .career-deadline { font-size: 0.75rem; line-height: 1.25rem; }
+.career-deadline time { display: block; color: var(--color-ink); font-size: 0.875rem; line-height: 1.5rem; font-weight: 500; }
+.career-state { margin-top: var(--space-xl); }
+.career-state .button, .career-state .text-link { margin-top: var(--space-lg); }
+.career-pagination { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-xl); font-size: 0.875rem; line-height: 1.5rem; }
+@media (min-width: 48rem) {
+  .career-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 35rem) {
+  .career-meta li + li { padding-left: 0; border-left: 0; }
+  .career-actions { align-items: stretch; flex-direction: column; }
+  .career-actions .button { width: 100%; margin-left: 0; }
+}
+
+.service-detail-content > section:first-child > p { white-space: pre-line; }

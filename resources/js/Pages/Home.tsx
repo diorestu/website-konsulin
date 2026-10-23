@@ -18,10 +18,10 @@ const faqs = [
     ['Bisakah saya memilih satu layanan saja?', 'Bisa. Anda dapat mendiskusikan satu kebutuhan tertentu maupun pendampingan berkala. Ruang lingkup dan cara kerja disepakati sebelum pekerjaan dimulai.'],
 ];
 const steps = [
-    ['Kenali kebutuhan', 'Kita mulai dari cerita dan kondisi usaha Anda.'],
-    ['Sepakati lingkup', 'Tentukan prioritas, pekerjaan, dan cara berkomunikasi.'],
-    ['Siapkan dokumen', 'Lengkapi informasi yang memang dibutuhkan.'],
-    ['Kerjakan & evaluasi', 'Tinjau hasil dan diskusikan langkah selanjutnya.'],
+    ['Ceritakan Kebutuhan', 'Sampaikan kondisi dan kendala yang Anda hadapi, Kami bantu analisa kebutuhan pajak dan akuntansi bisnis Anda.'],
+    ['Sepakati Layanan', 'Tentukan prioritas, cakupan layanan, biaya, dan waktu pengerjaan agar semuanya jelas sejak awal.'],
+    ['Siapkan Dokumen', 'Kami memandu Anda melengkapi data dan dokumen yang diperlukan, agar prosesnya lebih mudah dan terarah.'],
+    ['Tinjau Hasil', 'Kami menjelaskan hasil pekerjaan dan membahas langkah selanjutnya bersama Anda.'],
 ];
 
 export default function Home({ services, selectedService = '' }: { services: Service[]; selectedService?: string }) {

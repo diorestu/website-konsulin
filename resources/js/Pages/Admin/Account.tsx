@@ -1,0 +1,8 @@
+import { useForm, usePage } from '@inertiajs/react';
+import AdminLayout from '../../Components/Admin/AdminLayout';
+import FormField from '../../Components/Admin/FormField';
+export default function Account() {
+    const {admin} = usePage<{admin: {name: string; email: string}}>().props;
+    const form = useForm({current_password: '', password: '', password_confirmation: ''});
+    return <AdminLayout title="Akun" description={`${admin.name} · ${admin.email}`}><div className="row"><div className="col-lg-7"><form className="card" onSubmit={event => {event.preventDefault(); form.put('/admin/account/password', {onSuccess: () => form.reset()});}}><div className="card-header"><h2 className="card-title">Ubah password</h2></div><div className="card-body"><FormField label="Password saat ini" autoComplete="current-password" type="password" required value={form.data.current_password} onChange={value => form.setData('current_password', value)} error={form.errors.current_password} /><FormField label="Password baru" autoComplete="new-password" type="password" required value={form.data.password} onChange={value => form.setData('password', value)} error={form.errors.password} hint="Minimal 12 karakter, mengandung huruf dan angka." /><FormField label="Ulangi password baru" autoComplete="new-password" type="password" required value={form.data.password_confirmation} onChange={value => form.setData('password_confirmation', value)} error={form.errors.password_confirmation} /><button className="btn btn-primary" disabled={form.processing}>{form.processing ? 'Menyimpan…' : 'Ubah password'}</button></div></form></div></div></AdminLayout>;
+}

@@ -48,7 +48,7 @@ return [
         ],
         'services.index' => [
             'title' => 'Layanan Pajak, Akuntansi & Business Advisory',
-            'description' => 'Pilih 13 layanan Konsulin: laporan keuangan, SPT, TPDoc, restitusi, PKP, Coretax, hingga Business Advisory. Baca detail dan diskusikan kebutuhan Anda.',
+            'description' => 'Pilih layanan Konsulin: laporan keuangan, SPT, TPDoc, restitusi, PKP, Coretax, hingga Business Advisory. Baca detail dan diskusikan kebutuhan Anda.',
             'label' => 'Layanan Pajak & Akuntansi',
             'related' => ['about', 'values', 'contact'],
         ],
@@ -57,6 +57,12 @@ return [
             'description' => 'Ruang baca Konsulin tentang pajak, akuntansi, dan pengelolaan usaha. Artikel sedang disiapkan; jelajahi layanan dan diskusikan kebutuhan bisnis Anda.',
             'label' => 'Blog Pajak & Akuntansi',
             'related' => ['services.index', 'about', 'contact'],
+        ],
+        'careers.index' => [
+            'title' => 'Karir | Lowongan Kerja Konsulin',
+            'description' => 'Temukan lowongan kerja yang tersedia di Konsulin, baca informasi posisi, dan ajukan lamaran melalui halaman pendaftaran.',
+            'label' => 'Karir',
+            'related' => ['about', 'values', 'contact'],
         ],
         'contact' => [
             'title' => 'Hubungi Konsultan Pajak | Tangerang, Bali, Surabaya',

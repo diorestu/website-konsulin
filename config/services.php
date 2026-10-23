@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'humi' => [
+        'url' => env('HUMI_URL', 'https://humi.web.id'),
+        'company' => env('HUMI_COMPANY', '1'),
+    ],
 
     /*
     |--------------------------------------------------------------------------

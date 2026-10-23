@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Support\PublicContent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -18,7 +19,7 @@ class StoreConsultationRequest extends FormRequest
             'name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email:rfc', 'max:180'],
             'company' => ['nullable', 'string', 'max:180'],
-            'service' => ['required', Rule::in(array_column(config('konsulin.services'), 'id'))],
+            'service' => ['required', Rule::in(array_column(PublicContent::services(), 'id'))],
             'message' => ['required', 'string', 'min:15', 'max:3000'],
             'consent' => ['required', 'accepted'],
             'website' => ['nullable', 'string', 'max:0'],

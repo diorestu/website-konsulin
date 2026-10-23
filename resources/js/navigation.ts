@@ -4,5 +4,6 @@ export const navigation = [
     { label: 'Nilai Kami', href: '/our-value' },
     { label: 'Layanan Kami', href: '/layanan' },
     { label: 'Blog', href: '/blog' },
+    { label: 'Karir', href: '/karir' },
     { label: 'Kontak', href: '/kontak' },
 ];

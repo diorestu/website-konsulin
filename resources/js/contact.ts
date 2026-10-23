@@ -53,7 +53,7 @@ export const whatsappAdmin2Contact = {
     displayNumber: '+62 819 0879 7799',
 };
 
-export const officialEmail = 'info@konsulin.id';
+export let officialEmail = 'info@konsulin.id';
 
 export const socialLinks = [
     { name: 'WhatsApp', href: whatsappContact.url, icon: '/images/whatsapp.svg' },
@@ -67,3 +67,20 @@ export const officeLocations = [
     { name: 'Branch Bali', address: "De' Black House, Jl. Kusuma Bangsa VII No.71 Lantai 2, Pemecutan Kaja, Kec. Denpasar Utara, Kota Denpasar, Bali 80111" },
     { name: 'Branch Surabaya', address: 'Ruko Jemursari blok D12 No 203 RT03/RW08, Jlan Margorejo Indah XX Kel. Sidosermo, Kec. Wonocolo, Surabaya, Jawa Timur 60239' },
 ];
+
+export function configureContacts(site?: { whatsapp_primary: string; whatsapp_secondary: string; email: string; instagram: string | null; tiktok: string | null; linkedin: string | null; offices: { name: string; address: string }[] }) {
+    if (!site) return;
+    whatsappNumbers.primary = site.whatsapp_primary;
+    whatsappNumbers.admin2 = site.whatsapp_secondary;
+    whatsappContact.displayNumber = `+${site.whatsapp_primary}`;
+    whatsappContact.url = getWhatsAppUrl();
+    whatsappAdmin2Contact.displayNumber = `+${site.whatsapp_secondary}`;
+    officialEmail = site.email;
+    socialLinks.splice(0, socialLinks.length,
+        { name: 'WhatsApp', href: whatsappContact.url, icon: '/images/whatsapp.svg' },
+        ...[['Instagram', site.instagram, '/images/instagram.svg'], ['TikTok', site.tiktok, '/images/tiktok.svg'], ['LinkedIn', site.linkedin, '/images/linkedin.svg']]
+            .filter((entry): entry is [string, string, string] => Boolean(entry[1]))
+            .map(([name, href, icon]) => ({ name, href, icon })),
+    );
+    officeLocations.splice(0, officeLocations.length, ...site.offices);
+}

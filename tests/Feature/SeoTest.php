@@ -21,6 +21,8 @@ class SeoTest extends TestCase
 
     public function test_all_public_pages_have_unique_metadata_before_javascript_runs(): void
     {
+        Http::preventStrayRequests();
+        Http::fake(['https://humi.web.id/api/v1/companies/1/careers*' => Http::response([], 503)]);
         $titles = [];
         $descriptions = [];
         foreach (PageSeo::sitemapUrls() as $url) {
@@ -42,8 +44,8 @@ class SeoTest extends TestCase
             $titles[] = $title->item(0)->textContent;
             $descriptions[] = $description->item(0)->getAttribute('content');
         }
-        $this->assertCount(20, array_unique($titles));
-        $this->assertCount(20, array_unique($descriptions));
+        $this->assertCount(21, array_unique($titles));
+        $this->assertCount(21, array_unique($descriptions));
     }
 
     public function test_query_parameters_do_not_change_canonical_or_lose_consultation_prefill(): void
@@ -79,8 +81,9 @@ class SeoTest extends TestCase
         $xml = simplexml_load_string($response->getContent());
         $this->assertNotFalse($xml);
         $urls = array_map(fn ($url) => (string) $url->loc, iterator_to_array($xml->url, false));
-        $this->assertCount(20, $urls);
-        $this->assertCount(20, array_unique($urls));
+        $this->assertCount(21, $urls);
+        $this->assertCount(21, array_unique($urls));
+        $this->assertContains('https://konsulin.test/karir', $urls);
         foreach ($urls as $url) {
             $this->assertStringStartsWith('https://konsulin.test/', $url);
             $this->assertStringNotContainsString('?', $url);
