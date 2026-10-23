@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 type AdminProps = {admin: {name: string; email: string}; flash: {success: string | null}};
 const navigation = [
     ['/admin', 'Dashboard', 'grid'], ['/admin/consultations', 'Konsultasi', 'chat-left-text'],
-    ['/admin/services', 'Layanan', 'briefcase'], ['/admin/settings', 'Pengaturan website', 'sliders'], ['/admin/account', 'Akun', 'person-gear'],
+    ['/admin/services', 'Layanan', 'briefcase'], ['/admin/articles', 'Artikel', 'file-earmark-richtext'], ['/admin/settings', 'Pengaturan website', 'sliders'], ['/admin/account', 'Akun', 'person-gear'],
 ];
 
 export default function AdminLayout({ title, description, actions, children }: {title: string; description?: string; actions?: ReactNode; children: ReactNode}) {

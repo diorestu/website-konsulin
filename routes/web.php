@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\SeoController;
@@ -33,7 +34,8 @@ Route::get('/layanan', fn () => Inertia::render('Services', [
     'services' => PublicContent::services(),
 ]))->name('services.index');
 Route::get('/layanan/{service}', [ServiceController::class, 'show'])->name('services.show');
-Route::get('/blog', fn () => Inertia::render('Blog'))->name('blog');
+Route::get('/blog', [ArticleController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [ArticleController::class, 'show'])->name('blog.show');
 Route::get('/karir', [CareerController::class, 'index'])->name('careers.index');
 Route::get('/kontak', fn (Request $request) => Inertia::render('Contact', [
     'services' => PublicContent::services(),
@@ -49,6 +51,8 @@ Route::prefix('admin')->group(function (): void {
     Route::middleware(['auth', 'can:access-admin'])->name('admin.')->group(function (): void {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+        Route::post('articles/images', [App\Http\Controllers\Admin\ArticleController::class, 'uploadImage'])->middleware('throttle:30,1')->name('articles.images');
+        Route::resource('articles', App\Http\Controllers\Admin\ArticleController::class)->except(['show', 'destroy']);
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class)->except(['show', 'destroy']);
         Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');

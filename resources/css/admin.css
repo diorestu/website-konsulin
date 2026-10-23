@@ -45,3 +45,14 @@ textarea.form-control { min-height: 110px; }
 .admin-message { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; }
 @media (max-width: 991px) { .app-sidebar { z-index: 1038; visibility: hidden; } .sidebar-open .app-sidebar { visibility: visible; } }
 @media (max-width: 767px) { .admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .app-content .container-fluid, .app-content-header .container-fluid { padding-inline: 16px; } .card-body { padding: 20px; } .app-content-header h1 { font-size: 24px; } .admin-workspace-label { font-size: 13px; } }
+.article-editor { border: 1px solid #ced4da; border-radius: 6px; overflow: hidden; background: white; }
+.article-toolbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; border-bottom: 1px solid #dee2e6; background: #f8f9fa; }
+.article-toolbar .btn { min-width: 36px; min-height: 36px; }
+.article-editor .tiptap { min-height: 360px; padding: 24px; outline-offset: -3px; }
+.article-editor-options { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px; border-top: 1px solid #dee2e6; }
+.article-editor-options .form-control { flex: 1; min-width: 160px; }
+.article-prose { line-height: 1.8; overflow-wrap: anywhere; }
+.article-prose img { display: block; max-width: 100%; height: auto; margin-block: 24px; }
+.article-prose blockquote { border-left: 3px solid #8ca1b8; padding-left: 20px; color: #495057; }
+.article-prose pre { background: #f3f5f8; padding: 16px; overflow-x: auto; }
+.article-prose h2 { font-size: 24px; } .article-prose h3 { font-size: 20px; }

@@ -54,7 +54,7 @@ return [
         ],
         'blog' => [
             'title' => 'Blog Pajak, Akuntansi & Pengelolaan Usaha',
-            'description' => 'Ruang baca Konsulin tentang pajak, akuntansi, dan pengelolaan usaha. Artikel sedang disiapkan; jelajahi layanan dan diskusikan kebutuhan bisnis Anda.',
+            'description' => 'Baca artikel Konsulin tentang pajak, akuntansi, dan pengelolaan usaha untuk memahami kebutuhan bisnis Anda.',
             'label' => 'Blog Pajak & Akuntansi',
             'related' => ['services.index', 'about', 'contact'],
         ],

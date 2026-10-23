@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Service;
 use App\Models\User;
+use App\Support\PublicContent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -81,6 +82,18 @@ class AdminContentTest extends TestCase
         Http::fake(['https://humi.web.id/api/v1/companies/2/careers*' => Http::response([], 404)]);
         $this->get('/karir')->assertOk();
         Http::assertSent(fn ($request) => str_contains($request->url(), '/companies/2/careers'));
+    }
+
+    public function test_tangerang_map_is_preserved_when_admin_saves_settings(): void
+    {
+        $this->withoutVite();
+        $settings = PublicContent::settings();
+        $this->assertSame('https://maps.app.goo.gl/aaCC8CwQ24rmXj5Q9', $settings['offices'][0]['map_url'] ?? null);
+        $this->actingAs(User::factory()->create(['is_admin' => true]))->put('/admin/settings', $settings)->assertSessionHasNoErrors();
+        $this->get('/kontak')->assertInertia(fn (Assert $page) => $page
+            ->where('site.offices.0.map_url', 'https://maps.app.goo.gl/aaCC8CwQ24rmXj5Q9')
+            ->where('site.offices.0.map_embed_url', 'https://maps.google.com/maps?cid=607535924842059666&z=17&output=embed')
+            ->where('site.offices.1.name', 'Branch Bali')->where('site.offices.2.name', 'Branch Surabaya'));
     }
 
     public function test_invalid_contacts_and_unsafe_social_urls_are_rejected(): void

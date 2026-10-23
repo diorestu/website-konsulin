@@ -19,5 +19,5 @@ export type SiteSettings = {
     instagram: string | null;
     tiktok: string | null;
     linkedin: string | null;
-    offices: { name: string; address: string }[];
+    offices: { name: string; address: string; map_url?: string; map_embed_url?: string }[];
 };

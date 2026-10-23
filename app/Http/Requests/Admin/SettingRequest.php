@@ -25,9 +25,11 @@ class SettingRequest extends FormRequest
             'tiktok' => ['nullable', 'url:http,https', 'max:500'],
             'linkedin' => ['nullable', 'url:http,https', 'max:500'],
             'offices' => ['present', 'array', 'max:20'],
-            'offices.*' => ['array:name,address'],
+            'offices.*' => ['array:name,address,map_url,map_embed_url'],
             'offices.*.name' => ['required', 'string', 'max:120'],
             'offices.*.address' => ['required', 'string', 'max:1000'],
+            'offices.*.map_url' => ['nullable', 'url:https', 'max:1000', 'regex:~^https://(?:maps\.app\.goo\.gl/|(?:www\.google\.com|maps\.google\.com)/maps(?:[/?]))~'],
+            'offices.*.map_embed_url' => ['nullable', 'url:https', 'max:2000', 'regex:~^https://(?:www\.google\.com|maps\.google\.com)/maps(?:[/?])~'],
             'humi_company' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/'],
         ];
     }

@@ -8,8 +8,8 @@ export default function OfficeLocations({ showMaps = false }: { showMaps?: boole
         <div className="office-grid">{officeLocations.map(office => <article key={office.name}>
             <h3>{office.name}</h3>
             {showMaps && <div className="office-map">
-                <iframe title={`Peta kantor Konsulin ${office.name}`} src={`https://maps.google.com/maps?q=${encodeURIComponent(office.address)}&z=15&output=embed`} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
-                <a className="text-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`} target="_blank" rel="noopener noreferrer">Buka di Google Maps <span aria-hidden="true">↗</span></a>
+                <iframe title={`Peta kantor Konsulin ${office.name}`} src={office.map_embed_url || `https://maps.google.com/maps?q=${encodeURIComponent(office.address)}&z=15&output=embed`} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
+                <a className="text-link" href={office.map_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`} target="_blank" rel="noopener noreferrer">Buka di Google Maps <span aria-hidden="true">↗</span></a>
             </div>}
             <address><p>{office.address}</p></address>
         </article>)}</div>

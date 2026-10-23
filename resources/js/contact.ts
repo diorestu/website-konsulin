@@ -62,13 +62,13 @@ export const socialLinks = [
     { name: 'LinkedIn', href: 'https://www.linkedin.com/company/konsulinid', icon: '/images/linkedin.svg' },
 ];
 
-export const officeLocations = [
+export const officeLocations: {name: string; address: string; map_url?: string; map_embed_url?: string}[] = [
     { name: 'HQ Tangerang', address: 'Greenwich Business Park, Blok B1 Kec Pagedangan, Kabupaten Tangerang, Banten 15331' },
     { name: 'Branch Bali', address: "De' Black House, Jl. Kusuma Bangsa VII No.71 Lantai 2, Pemecutan Kaja, Kec. Denpasar Utara, Kota Denpasar, Bali 80111" },
     { name: 'Branch Surabaya', address: 'Ruko Jemursari blok D12 No 203 RT03/RW08, Jlan Margorejo Indah XX Kel. Sidosermo, Kec. Wonocolo, Surabaya, Jawa Timur 60239' },
 ];
 
-export function configureContacts(site?: { whatsapp_primary: string; whatsapp_secondary: string; email: string; instagram: string | null; tiktok: string | null; linkedin: string | null; offices: { name: string; address: string }[] }) {
+export function configureContacts(site?: { whatsapp_primary: string; whatsapp_secondary: string; email: string; instagram: string | null; tiktok: string | null; linkedin: string | null; offices: { name: string; address: string; map_url?: string; map_embed_url?: string }[] }) {
     if (!site) return;
     whatsappNumbers.primary = site.whatsapp_primary;
     whatsappNumbers.admin2 = site.whatsapp_secondary;

@@ -2,7 +2,9 @@
 
 namespace App\Support;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PageSeo
 {
@@ -29,7 +31,13 @@ class PageSeo
         $relatedLinks = [];
         $path = $request->getPathInfo();
 
-        if ($routeName === 'services.show') {
+        if ($routeName === 'blog.show') {
+            $article = Article::published()->where('slug', $request->route('slug'))->firstOrFail();
+            $metadata = ['title' => $article->seo_title ?: $article->title, 'description' => $article->seo_description ?: $article->excerpt, 'label' => $article->title];
+            $path = route('blog.show', $article->slug, false);
+            $breadcrumbs[] = ['name' => 'Blog', 'url' => self::url('/blog')];
+            $relatedLinks = [['title' => 'Semua artikel', 'href' => route('blog', [], false)]];
+        } elseif ($routeName === 'services.show') {
             $service = collect(PublicContent::services())->firstWhere('id', $request->route('service'));
             if (! $service) {
                 return [];
@@ -96,6 +104,12 @@ class PageSeo
         $urls = array_map(fn ($name) => self::url(route($name, [], false)), array_keys(config('seo.pages')));
         foreach (PublicContent::services() as $service) {
             $urls[] = self::url(route('services.show', $service['id'], false));
+        }
+
+        if (Schema::hasTable('articles')) {
+            foreach (Article::published()->pluck('slug') as $slug) {
+                $urls[] = self::url(route('blog.show', $slug, false));
+            }
         }
 
         return $urls;
