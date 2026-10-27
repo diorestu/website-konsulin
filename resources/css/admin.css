@@ -51,6 +51,14 @@ textarea.form-control { min-height: 110px; }
 .article-editor .tiptap { min-height: 360px; padding: 24px; outline-offset: -3px; }
 .article-editor-options { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px; border-top: 1px solid #dee2e6; }
 .article-editor-options .form-control { flex: 1; min-width: 160px; }
+.article-dropzone { width: 100%; min-width: 0; padding: 24px 16px; border: 2px dashed #8ca1b8; border-radius: 6px; background: #f8f9fa; color: #14213d; text-align: center; cursor: pointer; }
+.article-dropzone .bi { display: block; margin-bottom: 8px; font-size: 28px; }
+.article-dropzone .small { color: #495057; }
+.article-dropzone:hover, .article-dropzone.dz-drag-hover { border-color: #14213d; background: #edf3fa; }
+.article-dropzone:focus-visible { outline: 3px solid #247a9a; outline-offset: 3px; }
+.article-dropzone.is-invalid { border-color: #b02a37; }
+.article-dropzone[aria-disabled="true"] { opacity: .65; cursor: wait; }
+.article-editor-options > .mb-3 { flex: 1 0 100%; margin-bottom: 0 !important; }
 .article-prose { line-height: 1.8; overflow-wrap: anywhere; }
 .article-prose img { display: block; max-width: 100%; height: auto; margin-block: 24px; }
 .article-prose blockquote { border-left: 3px solid #8ca1b8; padding-left: 20px; color: #495057; }

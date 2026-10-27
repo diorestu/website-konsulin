@@ -76,6 +76,8 @@ class ArticleManagementTest extends TestCase
         Storage::fake('public');
         $this->actingAs(User::factory()->create(['is_admin' => true]));
         $this->post('/admin/articles/images', ['image' => UploadedFile::fake()->create('bad.svg', 10, 'image/svg+xml')])->assertSessionHasErrors('image');
+        $this->postJson('/admin/articles/images', ['image' => UploadedFile::fake()->create('large.jpg', 5121, 'image/jpeg')])
+            ->assertUnprocessable()->assertJsonPath('errors.image.0', 'Ukuran gambar maksimal 5 MB.');
         $response = $this->post('/admin/articles/images', ['image' => UploadedFile::fake()->image('inline.jpg')])->assertCreated();
         $this->assertStringStartsWith('/storage/articles/', $response->json('url'));
         $this->post('/admin/articles', $this->payload(['cover' => UploadedFile::fake()->image('cover.jpg')]))->assertSessionHasNoErrors();
@@ -92,5 +94,51 @@ class ArticleManagementTest extends TestCase
         $this->actingAs(User::factory()->create(['is_admin' => true]));
         $this->post('/admin/articles', $this->payload())->assertSessionHasNoErrors();
         $this->post('/admin/articles', $this->payload(['status' => 'invalid', 'content' => '<p></p>']))->assertSessionHasErrors(['slug', 'status', 'content']);
+    }
+
+    public function test_content_with_only_invisible_spacing_cannot_be_saved(): void
+    {
+        $this->actingAs(User::factory()->create(['is_admin' => true]));
+
+        foreach (['<p>&nbsp;</p>', '<p>&#8203;</p>', '<p>　</p>'] as $content) {
+            $this->post('/admin/articles', $this->payload(['content' => $content]))
+                ->assertSessionHasErrors('content');
+        }
+
+        $this->assertDatabaseCount('articles', 0);
+    }
+
+    public function test_missing_summary_has_an_actionable_validation_message(): void
+    {
+        $this->actingAs(User::factory()->create(['is_admin' => true]));
+        $this->post('/admin/articles', $this->payload(['excerpt' => '']))
+            ->assertSessionHasErrors(['excerpt' => 'Ringkasan wajib diisi.']);
+        $this->assertDatabaseCount('articles', 0);
+    }
+
+    public function test_multipart_edit_preserves_slug_and_failed_validation_keeps_saved_content_and_cover(): void
+    {
+        Storage::fake('public');
+        $this->actingAs(User::factory()->create(['is_admin' => true]));
+        $this->post('/admin/articles', $this->payload(['cover' => UploadedFile::fake()->image('cover.jpg')]))
+            ->assertSessionHasNoErrors();
+        $article = Article::firstOrFail();
+        $coverPath = $article->cover_path;
+
+        $this->post('/admin/articles/'.$article->id, $this->payload([
+            '_method' => 'put', 'slug' => 'url-diubah', 'remove_cover' => true,
+        ]))->assertSessionHasErrors('slug');
+        $this->assertSame('panduan-pajak', $article->fresh()->slug);
+        $this->assertSame($coverPath, $article->fresh()->cover_path);
+        Storage::disk('public')->assertExists($coverPath);
+
+        $this->post('/admin/articles/'.$article->id, $this->payload([
+            '_method' => 'put', 'title' => 'Judul diperbarui',
+            'cover' => UploadedFile::fake()->image('replacement.jpg'),
+        ]))->assertSessionHasNoErrors();
+        $this->assertSame('Judul diperbarui', $article->fresh()->title);
+        $this->assertSame('panduan-pajak', $article->fresh()->slug);
+        Storage::disk('public')->assertMissing($coverPath);
+        Storage::disk('public')->assertExists($article->fresh()->cover_path);
     }
 }

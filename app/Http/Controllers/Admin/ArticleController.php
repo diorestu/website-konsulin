@@ -74,7 +74,13 @@ class ArticleController extends Controller
 
     public function uploadImage(Request $request): JsonResponse
     {
-        $request->validate(['image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120']]);
+        $request->validate(['image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120']], [
+            'image.required' => 'Pilih gambar yang ingin disisipkan.',
+            'image.image' => 'File yang dipilih harus berupa gambar.',
+            'image.mimes' => 'Gunakan gambar JPG, PNG, atau WebP.',
+            'image.max' => 'Ukuran gambar maksimal 5 MB.',
+            'image.uploaded' => 'Gambar gagal diunggah. Coba gambar yang lebih kecil.',
+        ]);
         $path = $request->file('image')->store('articles', 'public');
 
         abort_unless($path, 503, 'Gambar gagal disimpan.');
