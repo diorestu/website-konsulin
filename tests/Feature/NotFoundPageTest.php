@@ -2,11 +2,43 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\HandleInertiaRequests;
+use App\Models\Article;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class NotFoundPageTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function test_unavailable_article_slugs_render_the_error_page_without_resolving_article_seo(): void
+    {
+        $this->withoutVite();
+        Article::factory()->create(['slug' => 'artikel-draft', 'status' => 'draft']);
+        Article::factory()->create(['slug' => 'artikel-arsip', 'status' => 'archived']);
+        $inertiaHeaders = [
+            'X-Inertia' => 'true',
+            'X-Requested-With' => 'XMLHttpRequest',
+            'X-Inertia-Version' => app(HandleInertiaRequests::class)->version(Request::create('/')) ?? '',
+        ];
+
+        foreach (['artikel-tidak-ada', 'artikel-draft', 'artikel-arsip'] as $slug) {
+            $this->get('/blog/'.$slug)->assertNotFound()
+                ->assertInertia(fn (Assert $page) => $page
+                    ->component('NotFound')
+                    ->where('seo', null));
+
+            $this->get('/blog/'.$slug, $inertiaHeaders)->assertNotFound()
+                ->assertHeader('X-Inertia', 'true')
+                ->assertJsonPath('component', 'NotFound')
+                ->assertJsonPath('props.seo', null);
+
+            $this->getJson('/blog/'.$slug)->assertNotFound()->assertJsonStructure(['message']);
+        }
+    }
+
     public function test_unknown_urls_render_the_custom_page_with_a_404_status(): void
     {
         $this->withoutVite();

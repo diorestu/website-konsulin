@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
             return $response->rootView('error')->render(
                 $response->request->is('admin', 'admin/*') ? 'Admin/NotFound' : 'NotFound',
                 [
+                    'seo' => null,
                     'homeUrl' => route('home', [], false),
                     'servicesUrl' => route('services.index', [], false),
                 ],
