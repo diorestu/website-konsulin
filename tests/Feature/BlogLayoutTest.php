@@ -39,4 +39,35 @@ class BlogLayoutTest extends TestCase
             ->has('articles.data', 3)->has('taxArticles.data', 1)->where('taxArticles.current_page', 2)
             ->has('accountingArticles.data', 2)->where('accountingArticles.current_page', 1));
     }
+
+    public function test_article_recommendations_prioritize_category_and_only_include_other_published_articles(): void
+    {
+        $this->withoutVite();
+        $this->freezeTime();
+        $current = Article::factory()->create(['category' => 'Pajak', 'status' => 'published', 'published_at' => now()]);
+        $related = Article::factory()->create(['category' => 'pajak', 'status' => 'published', 'published_at' => now()->subWeek()]);
+        $recent = Article::factory()->create(['category' => 'Accounting', 'status' => 'published', 'published_at' => now()->subDay()]);
+        $older = Article::factory()->create(['category' => null, 'status' => 'published', 'published_at' => now()->subDays(2)]);
+        Article::factory()->create(['status' => 'published', 'published_at' => now()->subMonth()]);
+        Article::factory()->create(['category' => 'Pajak', 'status' => 'draft']);
+        Article::factory()->create(['category' => 'Pajak', 'status' => 'archived', 'published_at' => now()]);
+        Article::factory()->create(['category' => 'Pajak', 'status' => 'published', 'published_at' => now()->addDay()]);
+
+        $this->get('/blog/'.$current->slug)->assertOk()->assertInertia(fn (Assert $page) => $page
+            ->component('ArticleDetail')->has('recommendedArticles', 3)
+            ->where('recommendedArticles.0.id', $related->id)
+            ->where('recommendedArticles.1.id', $recent->id)
+            ->where('recommendedArticles.2.id', $older->id)
+            ->where('recommendedArticles.0.url', route('blog.show', $related->slug, false))
+            ->missing('recommendedArticles.0.content'));
+    }
+
+    public function test_article_without_other_published_articles_has_no_recommendations(): void
+    {
+        $this->withoutVite();
+        $article = Article::factory()->create(['status' => 'published', 'published_at' => now()->subDay()]);
+
+        $this->get('/blog/'.$article->slug)->assertOk()->assertInertia(fn (Assert $page) => $page
+            ->has('recommendedArticles', 0));
+    }
 }

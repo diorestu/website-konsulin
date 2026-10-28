@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -31,7 +32,18 @@ class ArticleController extends Controller
     {
         $article = Article::published()->where('slug', $slug)->firstOrFail();
 
-        return Inertia::render('ArticleDetail', ['article' => [
+        $recommendedArticles = Article::published()
+            ->select(['id', 'title', 'slug', 'excerpt', 'category', 'cover_path', 'cover_alt', 'published_at'])
+            ->whereKeyNot($article->id)
+            ->when(filled($article->category), fn (Builder $query): Builder => $query
+                ->orderByRaw('CASE WHEN LOWER(TRIM(category)) = ? THEN 0 ELSE 1 END', [mb_strtolower(trim($article->category))]))
+            ->latest('published_at')->orderByDesc('id')->limit(3)->get()
+            ->map(fn (Article $recommended): array => [
+                ...$recommended->toArray(),
+                'url' => route('blog.show', $recommended->slug, false),
+            ]);
+
+        return Inertia::render('ArticleDetail', ['recommendedArticles' => $recommendedArticles, 'article' => [
             'title' => $article->title, 'slug' => $article->slug, 'excerpt' => $article->excerpt,
             'content' => Article::sanitize($article->content), 'category' => $article->category,
             'cover_url' => $article->cover_url, 'cover_alt' => $article->cover_alt, 'published_at' => $article->published_at->toIso8601String(),
