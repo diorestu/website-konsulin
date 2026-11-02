@@ -3,31 +3,31 @@ const directors = [
         name: 'Adi Putra Rizkillah',
         credentials: 'S.Ak, CFA, CTT, CPFP',
         role: 'Founder & Direktur Utama',
-        photo: { src: '/images/directors/adi-putra-rizkillah.jpeg', width: 1126, height: 1397 },
+        photo: { src: '/images/directors/adi-putra-rizkillah.jpg', width: 1414, height: 2000 },
     },
     {
         name: 'M. AGUSTIAWAN SAPUTRA',
         credentials: 'SM., MM., Ak., CA., CPMA., ASEAN CPA., CTA., CBPA., CTT., CPTT., BKP',
         role: 'Direktur & Partner',
-        photo: { src: '/images/directors/saputra.jpeg', width: 1024, height: 1121 },
+        photo: { src: '/images/directors/saputra.jpg', width: 1414, height: 2000 },
     },
     {
         name: 'MAS DANDY KUSDAJANTO',
         credentials: 'Drs., M.M., BKP',
         role: 'Komisaris & Senior Advisor (Ex. Kepala Kantor Pajak)',
-        photo: { src: '/images/directors/mas-dandy-kusdajanto.jpeg', width: 1086, height: 1448 },
+        photo: { src: '/images/directors/mas-dandy-kusdajanto.jpg', width: 1414, height: 2000 },
     },
     {
         name: 'Drs. Haposan Lumban Gaol',
         credentials: 'S.H., M.M.',
         role: 'Ex.Hakim Pengadilan Pajak',
-        photo: { src: '/images/directors/haposan-lumban-gaol.jpeg', width: 1145, height: 983 },
+        photo: { src: '/images/directors/haposan-lumban-gaol.jpg', width: 1414, height: 2000 },
     },
     {
         name: 'Ni Putu Sintya Bhakti Pratiwi',
         credentials: 'S.S.T.Ak., B.K.P.',
         role: 'Senior Manager',
-        photo: { src: '/images/directors/ni-putu-sintya-bhakti-pratiwi.png', width: 1021, height: 1540 },
+        photo: { src: '/images/directors/ni-putu-sintya-bhakti-pratiwi.jpg', width: 1414, height: 2000 },
     },
 ];
 
