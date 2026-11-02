@@ -20,7 +20,7 @@ const directors = [
     {
         name: 'Drs. Haposan Lumban Gaol',
         credentials: 'S.H., M.M.',
-        role: 'Ex.Hakim Pengadilan Pajak',
+        role: 'Ex.Hakim Pengadilan Pajak & Partner',
         photo: { src: '/images/directors/haposan-lumban-gaol.jpg', width: 1414, height: 2000 },
     },
     {
