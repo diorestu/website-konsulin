@@ -14,12 +14,18 @@ const directors = [
     {
         name: 'MAS DANDY KUSDAJANTO',
         credentials: 'Drs., M.M., BKP',
-        role: 'Komisaris & Senior Advisor',
+        role: 'Komisaris & Senior Advisor (Ex. Kepala Kantor Pajak)',
         photo: { src: '/images/directors/mas-dandy-kusdajanto.jpeg', width: 1086, height: 1448 },
     },
     {
+        name: 'Drs. Haposan Lumban Gaol',
+        credentials: 'S.H., M.M.',
+        role: 'Ex.Hakim Pengadilan Pajak',
+        photo: { src: '/images/directors/haposan-lumban-gaol.jpeg', width: 1145, height: 983 },
+    },
+    {
         name: 'Ni Putu Sintya Bhakti Pratiwi',
-        credentials: '',
+        credentials: 'S.S.T.Ak., B.K.P.',
         role: 'Senior Manager',
         photo: { src: '/images/directors/ni-putu-sintya-bhakti-pratiwi.png', width: 1021, height: 1540 },
     },

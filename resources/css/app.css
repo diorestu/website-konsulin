@@ -423,7 +423,7 @@ h1 span { color: var(--color-accent); }
 .director-card { display: flex; flex-direction: column; min-width: 0; overflow: clip; border: var(--rule-width) solid var(--color-rule); border-radius: var(--radius-md); background: var(--color-paper-2); color: var(--color-ink); transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
 .director-photo-frame { aspect-ratio: 4 / 5; overflow: hidden; }
 .director-photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 600ms var(--ease-out); }
-.director-body { display: flex; flex: 1; flex-direction: column; gap: var(--space-md); min-width: 0; padding: var(--space-lg); }
+.director-body { display: flex; flex: 1; flex-direction: column; gap: var(--space-xs); min-width: 0; padding: var(--space-lg); }
 .director-card--text-only .director-body { justify-content: center; }
 .director-card--text-only .director-body .director-role { margin-top: 0; }
 .director-card h3 { font-size: var(--text-lg); line-height: 1.5; letter-spacing: -0.025em; }
