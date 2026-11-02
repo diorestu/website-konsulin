@@ -443,7 +443,7 @@ h1 span { color: var(--color-accent); }
   .directors-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 75rem) {
-  .directors-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .directors-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
 .values-banner { position: relative; display: grid; align-items: center; min-height: 260px; overflow: clip; background: var(--color-ink); color: var(--color-paper); }
