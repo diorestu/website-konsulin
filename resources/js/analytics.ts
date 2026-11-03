@@ -1,4 +1,3 @@
-import { router } from '@inertiajs/react';
 import type { SeoMetadata } from './Components/SeoHead';
 
 declare global {
@@ -9,57 +8,117 @@ declare global {
     }
 }
 
-let enabled = false;
-let pageLocation = '';
+type AnalyticsParameters = Record<string, string | null>;
 
-export function trackContactEvent(channel: 'whatsapp' | 'email' | 'consultation_form', reference?: string) {
+let initialized = false;
+let enabled = false;
+let directAnalyticsId: string | null = null;
+let pageLocation = '';
+let pageTitle = '';
+
+function cleanUrl(value: string): string {
+    try {
+        const url = new URL(value);
+        return ['https:', 'http:'].includes(url.protocol) ? url.origin + url.pathname : '';
+    } catch {
+        return '';
+    }
+}
+
+function sendEvent(name: string, parameters: AnalyticsParameters = {}): void {
     if (!enabled) return;
-    window.gtag?.('event', channel === 'consultation_form' ? 'generate_lead' : 'contact_click', {
-        contact_method: channel,
+    const payload = {
         page_location: pageLocation,
-        ...(reference ? { cta_reference: reference } : {}),
+        page_path: new URL(pageLocation).pathname,
+        page_title: pageTitle,
+        page_referrer: null,
+        service_id: null,
+        service_name: null,
+        link_destination: null,
+        contact_method: null,
+        cta_reference: null,
+        cta_placement: null,
+        ...parameters,
+    };
+    // Clear optional fields so GTM cannot reuse values from the preceding event.
+    window.dataLayer?.push({ event: `konsulin_${name}`, ga4_event_name: name, ...payload });
+    if (directAnalyticsId) {
+        const values = Object.fromEntries(Object.entries(payload).filter(([, value]) => value !== null));
+        window.gtag?.('event', name, { ...values, send_to: directAnalyticsId });
+    }
+}
+
+export function trackContactEvent(channel: 'whatsapp' | 'email' | 'consultation_form', reference?: string, placement?: string): void {
+    if (!enabled) return;
+    const name = channel === 'consultation_form' ? 'generate_lead'
+        : channel === 'whatsapp' && placement === 'floating' ? 'whatsapp_floating_click' : 'contact_click';
+    sendEvent(name, {
+        contact_method: channel,
+        cta_reference: reference ?? null,
+        cta_placement: placement ?? null,
     });
-    window.dataLayer?.push({ event: channel === 'consultation_form' ? 'konsulin_generate_lead' : 'konsulin_contact_click', contact_method: channel, page_location: pageLocation, ...(reference ? { cta_reference: reference } : {}) });
     window.fbq?.('track', channel === 'consultation_form' ? 'Lead' : 'Contact');
 }
 
-export function setupAnalytics(initialPage: { props: Record<string, unknown> }) {
-    const initialSeo = initialPage.props.seo as SeoMetadata;
-    const id = initialSeo?.analyticsId;
-    if ((!id && !initialSeo?.tagManagerId && !initialSeo?.metaPixelId) || enabled) return;
-    enabled = true;
+export function setupAnalytics(initialPage: { props: Record<string, unknown> }): void {
+    const initialSeo = initialPage.props.seo as SeoMetadata | null;
+    if ((!initialSeo?.analyticsId && !initialSeo?.tagManagerId && !initialSeo?.metaPixelId) || initialized) return;
+    initialized = true;
     window.dataLayer = window.dataLayer || [];
-    if (id && /^G-[A-Z0-9]+$/.test(id)) {
+    const id = initialSeo.analyticsId;
+    directAnalyticsId = !initialSeo.tagManagerId && id && /^G-[A-Z0-9]+$/.test(id) ? id : null;
+    if (directAnalyticsId) {
         window.gtag = window.gtag || function () { window.dataLayer?.push(arguments); };
         window.gtag('js', new Date());
-        window.gtag('config', id, { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false });
+        window.gtag('config', directAnalyticsId, { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false });
     }
 
-    const sendPage = (seo: SeoMetadata) => {
-        if (pageLocation === seo.canonical) return;
-        const referrer = pageLocation || (document.referrer ? new URL(document.referrer).origin + new URL(document.referrer).pathname : '');
-        pageLocation = seo.canonical;
-        window.gtag?.('event', 'page_view', {
-            page_title: `${seo.title} — Konsulin`,
-            page_location: seo.canonical,
-            page_referrer: referrer,
-        });
-        window.dataLayer?.push({ event: 'konsulin_page_view', page_title: `${seo.title} — Konsulin`, page_location: seo.canonical, page_referrer: referrer });
+    const sendPage = (seo: SeoMetadata | null) => {
+        enabled = Boolean(seo && (seo.analyticsId || seo.tagManagerId || seo.metaPixelId));
+        if (!enabled || !seo) {
+            pageLocation = '';
+            return;
+        }
+        const location = cleanUrl(seo.canonical);
+        if (!location || pageLocation === location) return;
+        const referrer = pageLocation || cleanUrl(document.referrer);
+        pageLocation = location;
+        pageTitle = `${seo.title} — Konsulin`;
+        sendEvent('page_view', { page_referrer: referrer });
         window.fbq?.('track', 'PageView');
     };
     sendPage(initialSeo);
-    router.on('navigate', event => sendPage(event.detail.page.props.seo as SeoMetadata));
+    document.addEventListener('inertia:navigate', event => {
+        const page = (event as CustomEvent<{ page: { props: Record<string, unknown> } }>).detail.page;
+        sendPage(page.props.seo as SeoMetadata | null);
+    });
     document.addEventListener('click', event => {
-        const target = event.target instanceof Element ? event.target.closest('a[href]') as HTMLAnchorElement | null : null;
+        if (!enabled) return;
+        const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
         if (!target) return;
         const url = new URL(target.href);
-        if (url.hostname === 'wa.me') trackContactEvent('whatsapp', url.searchParams.get('text')?.match(/\[([A-Z0-9-]+)\]$/)?.[1]);
-        else if (url.protocol === 'mailto:') trackContactEvent('email');
-    });
-    if (id && /^G-[A-Z0-9]+$/.test(id)) {
+        const isWhatsApp = url.hostname === 'wa.me';
+        const serviceMatch = url.origin === window.location.origin ? url.pathname.match(/^\/layanan\/([^/]+)\/?$/) : null;
+        const serviceId = target.dataset.serviceId || serviceMatch?.[1];
+        if (serviceId) {
+            sendEvent('service_click', {
+                service_id: serviceId,
+                service_name: target.dataset.serviceName || target.textContent?.trim().replace(/\s+/g, ' ').slice(0, 100) || serviceId,
+                link_destination: isWhatsApp ? 'whatsapp' : 'service_detail',
+                cta_placement: target.dataset.ctaPlacement ?? 'service_link',
+            });
+        }
+        if (isWhatsApp) {
+            const reference = url.searchParams.get('text')?.match(/\[([A-Z0-9-]+)\]$/)?.[1];
+            trackContactEvent('whatsapp', reference, target.dataset.ctaPlacement);
+        } else if (url.protocol === 'mailto:') {
+            trackContactEvent('email');
+        }
+    }, { capture: true });
+    if (directAnalyticsId) {
         const script = document.createElement('script');
         script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${directAnalyticsId}`;
         document.head.appendChild(script);
     }
 }

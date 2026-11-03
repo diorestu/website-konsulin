@@ -17,6 +17,9 @@ export default function ServiceDirectory({
                 <a
                     className="service-directory-link"
                     href={getServiceWhatsAppUrl(service, url)}
+                    data-service-id={service.id}
+                    data-service-name={service.name}
+                    data-cta-placement="service_directory"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-labelledby={`service-title-${service.id}`}
@@ -25,7 +28,7 @@ export default function ServiceDirectory({
                     <Icon name="diagonal" />
                 </a>
             ) : (
-                <Link className="service-directory-link" href={`/layanan/${service.id}`} aria-labelledby={`service-title-${service.id}`}>
+                <Link className="service-directory-link" href={`/layanan/${service.id}`} data-service-id={service.id} data-service-name={service.name} data-cta-placement="service_directory" aria-labelledby={`service-title-${service.id}`}>
                     <h3 id={`service-title-${service.id}`} className="service-directory-name">{service.name}</h3>
                     <Icon name="diagonal" />
                 </Link>

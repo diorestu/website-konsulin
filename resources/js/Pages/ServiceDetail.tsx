@@ -28,7 +28,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     <p className="section-caption">Layanan Konsulin</p>
                     <h1>{service.name}</h1>
                     <p className="service-detail-summary">{service.summary}</p>
-                    <a className="button button-primary" href={consultationUrl} target="_blank" rel="noopener noreferrer" aria-label="Konsultasikan layanan melalui WhatsApp (tab baru)">Konsultasikan layanan <Icon name="arrow" /></a>
+                    <a className="button button-primary" href={consultationUrl} data-service-id={service.id} data-service-name={service.name} data-cta-placement="service_hero" target="_blank" rel="noopener noreferrer" aria-label="Konsultasikan layanan melalui WhatsApp (tab baru)">Konsultasikan layanan <Icon name="arrow" /></a>
                 </div>
             </div>
             <div className="container service-detail-body">
@@ -53,7 +53,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                         <p className="section-caption">Langkah berikutnya</p>
                         <h2 id="detail-next-step">Mulai dari<br />kebutuhan Anda.</h2>
                         <p>Ceritakan kebutuhan Anda melalui WhatsApp. Nama layanan akan terisi dalam pesan.</p>
-                        <a className="button button-primary" href={consultationUrl} target="_blank" rel="noopener noreferrer" aria-label="Mulai konsultasi melalui WhatsApp (tab baru)">Mulai konsultasi</a>
+                        <a className="button button-primary" href={consultationUrl} data-service-id={service.id} data-service-name={service.name} data-cta-placement="service_sidebar" target="_blank" rel="noopener noreferrer" aria-label="Mulai konsultasi melalui WhatsApp (tab baru)">Mulai konsultasi</a>
                         <Link className="text-link" href="/layanan">Lihat semua layanan</Link>
                     </div>
                 </aside>
