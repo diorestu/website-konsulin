@@ -17,5 +17,6 @@ return [
             'map_embed_url' => 'https://maps.google.com/maps?cid=607535924842059666&z=17&output=embed'],
         ['name' => 'Branch Bali', 'address' => "De' Black House, Jl. Kusuma Bangsa VII No.71 Lantai 2, Pemecutan Kaja, Kec. Denpasar Utara, Kota Denpasar, Bali 80111"],
         ['name' => 'Branch Surabaya', 'address' => 'Ruko Jemursari blok D12 No 203 RT03/RW08, Jlan Margorejo Indah XX Kel. Sidosermo, Kec. Wonocolo, Surabaya, Jawa Timur 60239'],
+        ['name' => 'Branch Solo', 'address' => 'Jl. Adi Sucipto No. Blok I, Manahan, Kec. Banjarsari, Kota Surakarta, Jawa Tengah 57139'],
     ],
 ];
